@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 #include <fstream>
-#include "iReader.h"
+/*#include "iReader.h"*/
 
 class DnaSequence {
 private:
@@ -28,7 +28,7 @@ public:
     DnaSequence(const char* dnaSequence);
     DnaSequence(const std::string& dnaSequence);
     DnaSequence(size_t lenDnaSequence);
-    DnaSequence(const IReader& dnaSequence);
+    /*DnaSequence(const IReader& dnaSequence);*/
     ~DnaSequence();
     DnaSequence(const DnaSequence& dnaSequence);
     const DnaSequence& operator=(const DnaSequence& dnaSequence);

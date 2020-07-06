@@ -10,7 +10,7 @@ public:
     DnaMetaData(const DnaSequence& dnaSequence, std::string name, const Status& status);
     DnaSequence getDnaSequence() const { return m_dnaSequence; }
     std::string getName() const { return m_name; }
-    size_t getId() const { return m_id; }
+    static size_t getId() { return m_id; }
     const Status getStatus() const { return m_status; }
 
 private:
@@ -20,8 +20,6 @@ private:
     Status m_status;
 };
 
-
-static size_t m_id = 0;
 
 inline DnaMetaData::DnaMetaData(const DnaSequence& dnaSequence, std::string name, const Status& status): m_dnaSequence(dnaSequence), m_name(name), m_status(status)
 {

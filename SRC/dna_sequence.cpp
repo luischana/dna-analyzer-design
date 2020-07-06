@@ -72,14 +72,14 @@ DnaSequence::DnaSequence(size_t lenDnaSequence)
     m_dnaSequence = new Nucleotide[lenDnaSequence + 1];
 }
 
-DnaSequence::DnaSequence(const IReader& dnaSequence)
+/*DnaSequence::DnaSequence(const IReader& dnaSequence)
 {
     if(isValidDnaSequence(dnaSequence.read().c_str()))
     {
         m_lenDnaSequence = strlen(dnaSequence.read().c_str());
         initDnaSequence(dnaSequence.read().c_str());
     }
-}
+}*/
 
 DnaSequence::~DnaSequence()
 {

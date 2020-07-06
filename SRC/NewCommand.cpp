@@ -1,4 +1,5 @@
 #include "NewCommand.h"
+#include "DnaHash.h"
 
 void NewCommand::run(const Params& params)
 {
@@ -18,4 +19,5 @@ void NewCommand::run(const Params& params)
     }
 
     DnaMetaData* newDnaSequence = new DnaMetaData(params.getParams()[0], name, (std::string)"new");
+    DnaHash::getIDMap().insert(std::pair<size_t, DnaMetaData*>(DnaMetaData::getId(), newDnaSequence));
 }

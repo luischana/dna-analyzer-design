@@ -7,9 +7,9 @@
 #include "DnaMetaData.h"
 
 class DnaHash {
-private:
-    static std::map<std::string, size_t> mapDnaName;
-    static std::map<size_t, DnaMetaData*> mapDnaId;
+public:
+    static std::map<std::string, size_t>& getNameMap();
+    static std::map<size_t, DnaMetaData*>& getIDMap();
 };
 
 

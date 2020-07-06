@@ -15,7 +15,7 @@ public:
 };
 
 
-inline NewCommand::NewCommand(const Params &params)
+inline NewCommand::NewCommand(const Params& params)
 {
     if(params.getParams().size() < 1 || params.getParams().size() > 2)
     {
