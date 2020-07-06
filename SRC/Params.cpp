@@ -1,6 +1,6 @@
 #include "Params.h"
 
-void Params::paramCmd(std::string cmd)
+Params::Params(std::string cmd)
 {
     size_t pos = 0;
 
