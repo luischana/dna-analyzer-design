@@ -2,7 +2,7 @@
 #define SRC_DNAMETADATA_H
 
 #include <string>
-#include "dna_sequence.h"
+#include "DnaSequence.h"
 #include "Status.h"
 
 class DnaMetaData {

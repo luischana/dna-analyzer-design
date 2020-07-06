@@ -2,7 +2,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <iostream>
-#include "dna_sequence.h"
+#include "DnaSequence.h"
 
 DnaSequence::Nucleotide::Nucleotide():m_char('\0') {}
 
