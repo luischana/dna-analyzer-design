@@ -1,5 +1,15 @@
+#include <stdexcept>
 #include "NewCommand.h"
 #include "DnaHash.h"
+
+
+NewCommand::NewCommand(const Params& params)
+{
+    if(params.getParams().size() < 1 || params.getParams().size() > 2)
+    {
+        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS");
+    }
+}
 
 void NewCommand::run(const Params& params)
 {
