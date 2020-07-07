@@ -1,6 +1,8 @@
 #include <stdexcept>
+#include <iostream>
 #include "NewCommand.h"
 #include "DnaHash.h"
+#include "IWriter.h"
 
 
 NewCommand::NewCommand(const Params& params)
@@ -11,7 +13,7 @@ NewCommand::NewCommand(const Params& params)
     }
 }
 
-void NewCommand::run(const Params& params)
+void NewCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 {
     static size_t count = 0;
     std::stringstream stringstream;
@@ -29,5 +31,15 @@ void NewCommand::run(const Params& params)
     }
 
     DnaMetaData* newDnaSequence = new DnaMetaData(params.getParams()[0], name, (std::string)"new");
-    DnaHash::getIDMap().insert(std::pair<size_t, DnaMetaData*>(DnaMetaData::getId(), newDnaSequence));
+    dnaHash.add(newDnaSequence);
+    print(dnaHash, writer);
+}
+
+void NewCommand::print(DnaHash& dnaHash, IWriter& writer)
+{
+    std::stringstream stringstream;
+
+    stringstream << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();
+
+    writer.write("[" + stringstream.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence().castChar() + '\n');
 }
