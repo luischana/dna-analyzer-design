@@ -8,8 +8,13 @@
 
 class DnaHash {
 public:
-    static std::map<std::string, size_t>& getNameMap();
-    static std::map<size_t, DnaMetaData*>& getIDMap();
+    void add(DnaMetaData* dna);
+    std::map<std::string, size_t>& getNameMap() { return m_nameMap; }
+    std::map<size_t, DnaMetaData*>& getIDMap() { return m_IDMap; }
+
+private:
+    std::map<std::string, size_t> m_nameMap;
+    std::map<size_t, DnaMetaData*> m_IDMap;
 };
 
 
