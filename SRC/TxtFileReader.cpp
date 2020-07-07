@@ -2,14 +2,15 @@
 #include <fstream>
 #include "TxtFileReader.h"
 
-TxtFileReader::TxtFileReader(std::string fileName)
+
+void TxtFileReader::read()
 {
     std::ifstream myFile;
-    myFile.open(fileName.c_str(), std::ios::in);
+    myFile.open(m_fileName);
 
     if(myFile.is_open())
     {
-        getline(myFile, m_data);
+        getline(myFile, m_str);
         myFile.close();
     }
 

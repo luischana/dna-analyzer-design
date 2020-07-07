@@ -2,9 +2,9 @@
 #define SRC_FILEREAD_H
 
 
-#include "Reader.h"
+#include "IReader.h"
 
-class FileRead: public Reader {
+class FileRead: public IReader {
 
 };
 

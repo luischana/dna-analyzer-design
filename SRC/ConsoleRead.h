@@ -2,13 +2,15 @@
 #define SRC_CONSOLEREAD_H
 
 
-#include "Reader.h"
+#include "IReader.h"
 
-class ConsoleRead: public Reader {
+class ConsoleRead: public IReader {
 public:
-    ConsoleRead();
+    /*virtual*/ void read();
+    /*virtual*/ const std::string& getStr() const { return m_str; }
 
-    /*virtual*/ std::string read() const { return m_data; }
+private:
+    std::string m_str;
 };
 
 

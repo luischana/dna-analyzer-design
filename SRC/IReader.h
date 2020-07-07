@@ -5,7 +5,8 @@
 
 class IReader {
 public:
-    virtual std::string read() const = 0;
+    virtual void read() = 0;
+    virtual const std::string& getStr() const  = 0;
 };
 
 

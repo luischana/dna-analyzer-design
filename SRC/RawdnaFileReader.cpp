@@ -2,14 +2,15 @@
 #include <fstream>
 #include "RawdnaFileReader.h"
 
-RawdnaFileReader::RawdnaFileReader(std::string fileName)
+
+void RawdnaFileReader::read()
 {
     std::ifstream myFile;
-    myFile.open(fileName.c_str(), std::ios::in);
+    myFile.open(m_fileName);
 
     if(myFile.is_open())
     {
-        getline(myFile, m_data);
+        getline(myFile, m_str);
         myFile.close();
     }
 

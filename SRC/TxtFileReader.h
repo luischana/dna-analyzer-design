@@ -7,9 +7,13 @@
 
 class TxtFileReader:public FileRead {
 public:
-    TxtFileReader(std::string fileName);
+    TxtFileReader(const char* fileName):m_fileName(fileName){}
+    /*virtual*/ void read();
+    /*virtual*/ const std::string& getStr() const { return m_str; }
 
-    /*virtual*/ std::string read() const { return m_data; }
+private:
+    const char* m_fileName;
+    std::string m_str;
 };
 
 
