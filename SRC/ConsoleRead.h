@@ -2,9 +2,9 @@
 #define SRC_CONSOLEREAD_H
 
 
-#include "FileReader.h"
+#include "Reader.h"
 
-class ConsoleRead: public FileReader {
+class ConsoleRead: public Reader {
 public:
     ConsoleRead();
 
