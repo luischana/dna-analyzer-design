@@ -7,7 +7,7 @@
 
 class Params {
 public:
-    Params(std::string cmd);
+    void params(std::string cmd);
     const std::string& getCmdName() const { return m_commandName; }
     const std::vector<std::string>& getParams() const { return m_vectorParams; }
 

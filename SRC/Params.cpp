@@ -1,6 +1,6 @@
 #include "Params.h"
 
-Params::Params(std::string cmd)
+void Params::params(std::string cmd)
 {
     size_t pos = 0;
 
@@ -13,7 +13,7 @@ Params::Params(std::string cmd)
     m_commandName = cmd.substr(0, pos);
     cmd.erase(0, pos+1);
 
-    while((pos = cmd.find(' ')) == std::string::npos)
+    while((pos = cmd.find(' ')) != std::string::npos)
     {
         m_vectorParams.push_back(cmd.substr(0, pos));
         cmd.erase(0, pos+1);
