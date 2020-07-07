@@ -2,6 +2,9 @@
 #define SRC_RAWDNAFILEWRITER_H
 
 
+#include <string>
+#include "FileWriter.h"
+
 class RawdnaFileWriter: public FileWriter {
 public:
     RawdnaFileWriter(std::string fileName);

@@ -2,6 +2,8 @@
 #define SRC_FILEWRITER_H
 
 
+#include "IWriter.h"
+
 class FileWriter: public IWriter {
 
 };

@@ -2,6 +2,8 @@
 #define SRC_CONSOLEWRITER_H
 
 
+#include "IWriter.h"
+
 class ConsoleWriter: public IWriter {
 public:
     /*virtual*/ void write(std::string str) const;

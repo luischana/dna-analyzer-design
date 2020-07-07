@@ -1,6 +1,5 @@
+#include <fstream>
 #include "TxtFileWriter.h"
-
-TxtFileWriter::TxtFileWriter(std::string fileName):m_fileName(fileName){}
 
 void TxtFileWriter::write(std::string str) const
 {

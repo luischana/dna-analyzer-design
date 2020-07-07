@@ -1,3 +1,4 @@
+#include <fstream>
 #include "RawdnaFileWriter.h"
 
 RawdnaFileWriter::RawdnaFileWriter(std::string fileName):m_fileName(fileName){}
