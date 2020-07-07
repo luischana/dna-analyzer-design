@@ -1,5 +1,6 @@
 #include "Factory.h"
 #include "NewCommand.h"
+#include "LoadCommand.h"
 
 ICommand* Factory::create(const Params& params)
 {
@@ -7,4 +8,10 @@ ICommand* Factory::create(const Params& params)
     {
         return new NewCommand(params);
     }
+
+    if(params.getCmdName() == "load")
+    {
+        return new LoadCommand(params);
+    }
+    return NULL;
 }
