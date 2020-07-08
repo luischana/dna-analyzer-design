@@ -1,6 +1,7 @@
 #include "Factory.h"
 #include "NewCommand.h"
 #include "LoadCommand.h"
+#include "SaveCommand.h"
 
 ICommand* Factory::create(const Params& params)
 {
@@ -13,5 +14,11 @@ ICommand* Factory::create(const Params& params)
     {
         return new LoadCommand(params);
     }
+
+    if(params.getCmdName() == "save")
+    {
+        return new SaveCommand(params);
+    }
+
     return NULL;
 }
