@@ -7,7 +7,7 @@
 
 class RawdnaFileWriter: public FileWriter {
 public:
-    RawdnaFileWriter(std::string fileName);
+    RawdnaFileWriter(std::string fileName): m_fileName(fileName){}
     /*virtual*/ void write(std::string str) const;
 
 private:

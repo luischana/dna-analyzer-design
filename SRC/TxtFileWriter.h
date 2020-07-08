@@ -7,7 +7,7 @@
 
 class TxtFileWriter: public FileWriter {
 public:
-    TxtFileWriter(std::string fileName):m_fileName(fileName){}
+    TxtFileWriter(std::string fileName): m_fileName(fileName){}
     /*virtual*/ void write(std::string str) const;
 
 private:
