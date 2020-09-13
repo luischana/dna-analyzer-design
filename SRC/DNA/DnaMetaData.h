@@ -8,20 +8,22 @@
 class DnaMetaData {
 public:
     DnaMetaData(const DnaSequence& dnaSequence, std::string name, const Status& status);
-    DnaSequence getDnaSequence() const { return m_dnaSequence; }
-    std::string getName() const { return m_name; }
+    const DnaSequence& getDnaSequence() const { return m_dnaSequence; }
+    const std::string& getName() const { return m_name; }
     static size_t getId() { return m_id; }
-    const Status getStatus() const { return m_status; }
+    const Status& getStatus() const { return m_status; }
+    size_t getCount() { return ++m_count; }
 
 private:
     DnaSequence m_dnaSequence;
     std::string m_name;
     static size_t m_id;
     Status m_status;
+    size_t m_count;
 };
 
 
-inline DnaMetaData::DnaMetaData(const DnaSequence& dnaSequence, std::string name, const Status& status): m_dnaSequence(dnaSequence), m_name(name), m_status(status)
+inline DnaMetaData::DnaMetaData(const DnaSequence& dnaSequence, std::string name, const Status& status): m_dnaSequence(dnaSequence), m_name(name), m_status(status), m_count(0)
 {
     ++m_id;
 }

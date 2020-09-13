@@ -3,7 +3,7 @@
 
 
 #include <string>
-#include "Params.h"
+#include "../params/Params.h"
 #include "ICommand.h"
 
 class LoadCommand:public ICommand {

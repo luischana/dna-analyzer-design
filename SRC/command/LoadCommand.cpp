@@ -1,10 +1,9 @@
 #include <stdexcept>
 #include <sstream>
-#include <iostream>
 #include "LoadCommand.h"
-#include "DnaMetaData.h"
-#include "DnaHash.h"
-#include "RawdnaFileReader.h"
+#include "../DNA/DnaMetaData.h"
+#include "../DNA/DnaHash.h"
+#include "../read/RawdnaFileReader.h"
 
 LoadCommand::LoadCommand(const Params& params)
 {
@@ -19,14 +18,13 @@ void LoadCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
     RawdnaFileReader fileName(params.getParams()[0].c_str());
     fileName.read();
 
-    static size_t count = 0;
-    std::stringstream stringstream;
     std::string name;
 
     if(params.getParams().size() == 1)
     {
-        stringstream << "seq" << ++count;
-        name = stringstream.str();
+       name = params.getParams()[0];
+       size_t found = name.find('.');
+       name = name.substr(0, found);
     }
 
     else
@@ -34,7 +32,7 @@ void LoadCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
         name = params.getParams()[1];
     }
 
-    DnaMetaData* newDnaSequence = new DnaMetaData(fileName.read(), name, (std::string)"load");
+    DnaMetaData* newDnaSequence = new DnaMetaData(fileName.getStr(), name, (std::string)"load");
     dnaHash.add(newDnaSequence);
     print(dnaHash, writer);
 }

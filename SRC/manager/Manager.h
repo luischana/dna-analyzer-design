@@ -2,9 +2,9 @@
 #define SRC_MANAGER_H
 
 
-#include "IReader.h"
-#include "IWriter.h"
-#include "DnaHash.h"
+#include "../read/IReader.h"
+#include "../write/IWriter.h"
+#include "../DNA/DnaHash.h"
 
 class Manager {
 public:

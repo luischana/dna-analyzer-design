@@ -4,9 +4,9 @@
 
 #include <sstream>
 #include "CreationCommand.h"
-#include "Params.h"
-#include "DnaHash.h"
-#include "IWriter.h"
+#include "../params/Params.h"
+#include "../DNA/DnaHash.h"
+#include "../write/IWriter.h"
 
 class NewCommand: public CreationCommand {
 public:

@@ -1,7 +1,7 @@
 #include "Factory.h"
-#include "NewCommand.h"
-#include "LoadCommand.h"
-#include "SaveCommand.h"
+#include "../command/NewCommand.h"
+#include "../command/LoadCommand.h"
+#include "../command/SaveCommand.h"
 
 ICommand* Factory::create(const Params& params)
 {

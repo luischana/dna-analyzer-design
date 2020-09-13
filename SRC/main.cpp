@@ -1,6 +1,6 @@
-#include "Manager.h"
-#include "ConsoleRead.h"
-#include "IWriter.h"
+#include "manager/Manager.h"
+#include "read/ConsoleRead.h"
+#include "write/ConsoleWriter.h"
 
 int main() {
     Manager manager;

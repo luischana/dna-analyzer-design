@@ -2,8 +2,8 @@
 #define SRC_FACTORY_H
 
 
-#include "Params.h"
-#include "ICommand.h"
+#include "../params/Params.h"
+#include "../command/ICommand.h"
 
 
 class Factory {

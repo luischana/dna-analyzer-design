@@ -1,7 +1,7 @@
 #include "Manager.h"
-#include "IWriter.h"
-#include "Factory.h"
-#include "ConsoleRead.h"
+#include "../write/IWriter.h"
+#include "../factory/Factory.h"
+#include "../read/ConsoleRead.h"
 
 
 void Manager::doAction(IReader& reader, IWriter& writer, DnaHash& dnaHash)

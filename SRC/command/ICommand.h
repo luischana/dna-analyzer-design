@@ -2,9 +2,9 @@
 #define SRC_ICOMMAND_H
 
 
-#include "Params.h"
-#include "DnaHash.h"
-#include "IWriter.h"
+#include "../params/Params.h"
+#include "../DNA/DnaHash.h"
+#include "../write/IWriter.h"
 
 class ICommand {
 public:

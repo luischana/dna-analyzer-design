@@ -1,8 +1,9 @@
 #include <stdexcept>
 #include <iostream>
+#include <cstring>
 #include "NewCommand.h"
-#include "DnaHash.h"
-#include "IWriter.h"
+#include "../DNA/DnaHash.h"
+#include "../write/IWriter.h"
 
 
 NewCommand::NewCommand(const Params& params)
@@ -18,6 +19,7 @@ void NewCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
     static size_t count = 0;
     std::stringstream stringstream;
     std::string name;
+    std::string tempName;
 
     if(params.getParams().size() == 1)
     {
@@ -27,7 +29,28 @@ void NewCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
     else
     {
-        name = params.getParams()[1];
+        /*if(params.getParams()[1][0] == '@')
+        {
+            const char* strId = params.getParams()[0].c_str();
+            size_t id = 0;
+            std::istringstream(strId + 1) >> id;
+
+            tempName = dnaHash.getIDMap()[id]->getName();
+            name = tempName.substr(1, tempName.length());
+        }
+
+        else
+        {
+            throw std::invalid_argument("invalid argument");
+        }*/
+       name = params.getParams()[1];
+    }
+
+    if(dnaHash.getNameMap().find(name) != dnaHash.getNameMap().end())
+    {
+        std::stringstream name1;
+        name1 << name << '_' << dnaHash.getIDMap()[dnaHash.getNameMap()[name]]->getCount();
+        name =  name1.str();
     }
 
     DnaMetaData* newDnaSequence = new DnaMetaData(params.getParams()[0], name, (std::string)"new");
