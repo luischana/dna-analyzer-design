@@ -5,6 +5,7 @@
 #include "../DNA/DnaHash.h"
 #include "../read/RawdnaFileReader.h"
 
+
 LoadCommand::LoadCommand(const Params& params)
 {
     if(params.getParams().size() < 1 || params.getParams().size() > 2)

@@ -5,8 +5,9 @@
 #include <string>
 #include "../params/Params.h"
 #include "ICommand.h"
+#include "CreationCommand.h"
 
-class LoadCommand:public ICommand {
+class LoadCommand:public CreationCommand {
 public:
     LoadCommand(const Params& params);
     void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
