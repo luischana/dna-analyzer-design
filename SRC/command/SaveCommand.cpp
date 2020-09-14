@@ -2,6 +2,7 @@
 #include "SaveCommand.h"
 #include "../write/TxtFileWriter.h"
 
+
 SaveCommand::SaveCommand(const Params& params)
 {
     if(params.getParams().size() < 1 || params.getParams().size() > 2)
@@ -16,6 +17,7 @@ void SaveCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
     if(params.getParams().size() == 1)
     {
+        //TODO @
         if(params.getParams()[0][0] == '#')
         {
             const char* strId = params.getParams()[0].c_str();

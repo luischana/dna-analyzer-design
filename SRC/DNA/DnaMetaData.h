@@ -9,17 +9,17 @@ class DnaMetaData {
 public:
     DnaMetaData(const DnaSequence& dnaSequence, std::string name, const Status& status);
     const DnaSequence& getDnaSequence() const { return m_dnaSequence; }
-    const std::string& getName() const { return m_name; }
-    static size_t getId() { return m_id; }
-    const Status& getStatus() const { return m_status; }
-    size_t getCount() { return ++m_count; }
+    const std::string& getName() const        { return m_name; }
+    static size_t getId()                     { return m_id; }
+    const Status& getStatus() const           { return m_status; }
+    size_t getCount()                         { return ++m_count; }
 
 private:
-    DnaSequence m_dnaSequence;
-    std::string m_name;
+    DnaSequence   m_dnaSequence;
+    std::string   m_name;
     static size_t m_id;
-    Status m_status;
-    size_t m_count;
+    Status        m_status;
+    size_t        m_count;
 };
 
 

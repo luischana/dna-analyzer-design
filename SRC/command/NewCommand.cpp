@@ -29,21 +29,17 @@ void NewCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
     else
     {
-        /*if(params.getParams()[1][0] == '@')
-        {
-            const char* strId = params.getParams()[0].c_str();
-            size_t id = 0;
-            std::istringstream(strId + 1) >> id;
+        const char* tempName = params.getParams()[1].c_str();
 
-            tempName = dnaHash.getIDMap()[id]->getName();
-            name = tempName.substr(1, tempName.length());
+        if(params.getParams()[1][0] == '@')
+        {
+            name = tempName + 1;
         }
 
         else
         {
-            throw std::invalid_argument("invalid argument");
-        }*/
-       name = params.getParams()[1];
+            name = tempName;
+        }
     }
 
     if(dnaHash.getNameMap().find(name) != dnaHash.getNameMap().end())
