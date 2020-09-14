@@ -17,28 +17,32 @@ void SaveCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
     if(params.getParams().size() == 1)
     {
-        //TODO @
+        const char* temp = params.getParams()[0].c_str();
+
         if(params.getParams()[0][0] == '#')
         {
-            const char* strId = params.getParams()[0].c_str();
             size_t id = 0;
-            std::istringstream(strId + 1) >> id;
+            std::istringstream(temp + 1) >> id;
 
             name = dnaHash.getIDMap()[id]->getName();
+
+            TxtFileWriter write(name + ".rawdna");
+            write.write(dnaHash.getIDMap()[dnaHash.getNameMap()[name]]->getDnaSequence().castChar());
         }
 
-        else
+        if(params.getParams()[0][0] == '@')
         {
-            name = params.getParams()[0].substr(1, params.getParams()[0].length());
+            name = dnaHash.getIDMap()[dnaHash.getNameMap()[temp + 1]]->getName();
+
+            TxtFileWriter write(name + ".rawdna");
+            write.write(dnaHash.getIDMap()[dnaHash.getNameMap()[temp + 1]]->getDnaSequence().castChar());
         }
     }
 
     else
     {
-        /*name = params.getParams()[1];
-        params.getParams()[0].substr(1, params.getParams()[0].length());*/
+        TxtFileWriter write(params.getParams()[1]);
+        write.write(params.getParams()[0]);
     }
-
-    TxtFileWriter write(name + ".rawdna");
-    write.write(dnaHash.getIDMap()[dnaHash.getNameMap()[name]]->getDnaSequence().castChar());
 }
+

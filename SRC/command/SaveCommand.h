@@ -2,9 +2,9 @@
 #define SRC_SAVECOMMAND_H
 
 
-#include "ICommand.h"
+#include "ManagementCommand.h"
 
-class SaveCommand: public ICommand {
+class SaveCommand: public ManagementCommand {
 public:
     SaveCommand(const Params& params);
     void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
