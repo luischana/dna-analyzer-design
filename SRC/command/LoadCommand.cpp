@@ -2,7 +2,6 @@
 #include <sstream>
 #include "LoadCommand.h"
 #include "../DNA/DnaMetaData.h"
-#include "../DNA/DnaHash.h"
 #include "../read/RawdnaFileReader.h"
 
 

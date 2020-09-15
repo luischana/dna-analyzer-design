@@ -2,8 +2,6 @@
 #include <iostream>
 #include <cstring>
 #include "NewCommand.h"
-#include "../DNA/DnaHash.h"
-#include "../write/IWriter.h"
 
 
 NewCommand::NewCommand(const Params& params)
