@@ -1,13 +1,16 @@
-#include "manager/Manager.h"
-#include "read/ConsoleRead.h"
-#include "write/ConsoleWriter.h"
+#include "controler/System.h"
+#include "view/UI/Terminal.h"
+#include "view/read/ConsoleRead.h"
+#include "view/write/ConsoleWriter.h"
 
 int main() {
-    Manager manager;
+    System program;
+
     ConsoleRead reader;
     ConsoleWriter writer;
-    DnaHash dnaHash;
-    manager.doAction(reader, writer, dnaHash);
+    Terminal terminal;
+
+    program.start(reader, writer, &terminal);
 
     return 0;
 }
