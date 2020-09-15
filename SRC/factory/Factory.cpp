@@ -2,6 +2,8 @@
 #include "../command/NewCommand.h"
 #include "../command/LoadCommand.h"
 #include "../command/SaveCommand.h"
+#include "../command/DupCommand.h"
+
 
 ICommand* Factory::create(const Params& params)
 {
@@ -18,6 +20,11 @@ ICommand* Factory::create(const Params& params)
     if(params.getCmdName() == "save")
     {
         return new SaveCommand(params);
+    }
+
+    if(params.getCmdName() == "dup")
+    {
+        return new DupCommand(params);
     }
 
     return NULL;
