@@ -4,6 +4,8 @@
 #include "../command/LoadCommand.h"
 #include "../command/SaveCommand.h"
 #include "../command/DupCommand.h"
+#include "../command/LenCommand.h"
+#include "../command/FindCommand.h"
 
 
 ICommand* Factory::create(const Params& params)
@@ -26,6 +28,11 @@ ICommand* Factory::create(const Params& params)
     if (params.getCmdName() == "dup")
     {
         return new DupCommand(params);
+    }
+
+    if (params.getCmdName() == "len")
+    {
+        return new LenCommand(params);
     }
 
     std::cout << "command not found :(" << std::endl;
