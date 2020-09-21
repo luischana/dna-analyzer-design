@@ -38,5 +38,5 @@ void LenCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
 void LenCommand::print(IWriter &writer, std::string str)
 {
-    writer.write(str);
+    writer.write(str + "\n");
 }
