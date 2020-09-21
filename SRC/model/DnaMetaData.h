@@ -13,6 +13,7 @@ public:
     static size_t getId()                     { return m_id; }
     const Status& getStatus() const           { return m_status; }
     size_t getCount()                         { return ++m_count; }
+    void setSeq(const DnaSequence& seq);
 
 private:
     DnaSequence   m_dnaSequence;
@@ -26,6 +27,11 @@ private:
 inline DnaMetaData::DnaMetaData(const DnaSequence& dnaSequence, std::string name, const Status& status): m_dnaSequence(dnaSequence), m_name(name), m_status(status), m_count(0)
 {
     ++m_id;
+}
+
+inline void DnaMetaData::setSeq(const DnaSequence &seq)
+{
+    m_dnaSequence = seq;
 }
 
 
