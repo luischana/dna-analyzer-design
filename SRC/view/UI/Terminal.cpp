@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Terminal.h"
 #include "../write/IWriter.h"
 #include "../../controler/factory/Factory.h"
@@ -11,7 +12,16 @@ void Terminal::doAction(IReader& reader, IWriter& writer, DnaHash& dnaHash)
         Params p;
         reader.read();
         p.params(reader.getStr());
-        ICommand* command = Factory::create(p);
-        command->run(p, dnaHash, writer);
+
+        try
+        {
+            ICommand *command = Factory::create(p);
+            command->run(p, dnaHash, writer);
+        }
+
+        catch (std::exception &ex)
+        {
+            std::cout << ex.what() << std::endl;
+        };
     }
 }
