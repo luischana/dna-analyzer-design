@@ -5,7 +5,7 @@
 #include "../command/SaveCommand.h"
 #include "../command/DupCommand.h"
 #include "../command/LenCommand.h"
-#include "../command/FindCommand.h"
+#include "../command/SliceCommand.h"
 
 
 ICommand* Factory::create(const Params& params)
@@ -33,6 +33,11 @@ ICommand* Factory::create(const Params& params)
     if (params.getCmdName() == "len")
     {
         return new LenCommand(params);
+    }
+
+    if (params.getCmdName() == "slice")
+    {
+        return new SliceCommand(params);
     }
 
     std::cout << "command not found :(" << std::endl;
