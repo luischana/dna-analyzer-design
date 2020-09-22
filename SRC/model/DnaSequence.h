@@ -37,7 +37,7 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const DnaSequence& dnaSequence);
     DnaSequence slice(size_t startIdx, size_t endIdx);
     DnaSequence pairing();
-    size_t find(const DnaSequence& dnaSequence);
+    size_t find(const DnaSequence& dnaSequence)const;
     size_t count(const DnaSequence& dnaSequence);
     std::list<size_t> findAll(const DnaSequence& dnaSequence);
     void createConsensusSequences(std::list<DnaSequence>& consensusSequencesList, std::list<size_t>& startCodonList, std::list<size_t>& endCodonList);

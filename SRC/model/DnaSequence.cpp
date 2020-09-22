@@ -91,6 +91,7 @@ const DnaSequence& DnaSequence::operator=(const DnaSequence &dnaSequence)
         return *this;
 
     delete[] m_dnaSequence;
+    m_lenDnaSequence = dnaSequence.lenght();
     initDnaSequence(dnaSequence.castChar());
 
     return *this;
@@ -176,7 +177,7 @@ DnaSequence DnaSequence::pairing()
     return dnaSequence;
 }
 
-size_t DnaSequence::find(const DnaSequence& dnaSequence)
+size_t DnaSequence::find(const DnaSequence& dnaSequence) const
 {
     std::string strM_DnaSequence = castChar();
     std::string strDnaSequence = dnaSequence.castChar();
