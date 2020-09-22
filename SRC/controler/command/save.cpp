@@ -4,11 +4,16 @@
 #include "../AuxiliaryFunc.h"
 
 
-Save::Save(const Params& params)
+void Save::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void Save::isValid(const Params& params)
 {
     if (params.getParams().empty() || params.getParams().size() > 2)
     {
-        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS");
+        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS\n");
     }
 
     if (!(params.getParams()[0][0] == '@' || params.getParams()[0][0] == '#'))
@@ -20,7 +25,7 @@ Save::Save(const Params& params)
 
 void Save::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 {
-    size_t id;
+    size_t id = 0;
     std::string nameFile;
     std::string nameDna;
 
@@ -57,6 +62,7 @@ void Save::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
     }
 
     TxtFileWriter write(nameFile);
+
     write.write(dnaHash.findInIdMap(id)->getDnaSequence().castChar());
 }
 

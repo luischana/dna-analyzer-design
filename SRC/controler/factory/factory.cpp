@@ -2,6 +2,7 @@
 #include "factory.h"
 #include "../command/new.h"
 #include "../command/load.h"
+#include "../command/save.h"
 
 
 std::map<std::string, ICommand*> Factory::s_commands;
@@ -25,10 +26,12 @@ void Factory::init()
 {
     s_commands.insert(std::pair<std::string, ICommand*>("new", new New));
     s_commands.insert(std::pair<std::string, ICommand*>("load", new Load));
+    s_commands.insert(std::pair<std::string, ICommand*>("save", new Save));
 }
 
 void Factory::release()
 {
     delete s_commands.at("new");
     delete s_commands.at("load");
+    delete s_commands.at("save");
 }
