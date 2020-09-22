@@ -8,3 +8,10 @@ size_t castToSize(std::string string)
     temp >> idDna;
     return idDna;
 }
+
+std::string castToString(size_t num)
+{
+    std::stringstream temp;
+    temp << num;
+    return temp.str();
+}
