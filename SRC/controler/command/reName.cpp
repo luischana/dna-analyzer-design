@@ -2,7 +2,12 @@
 #include "../AuxiliaryFunc.h"
 
 
-ReName::ReName(const Params &params)
+void ReName::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void ReName::isValid(const Params& params)
 {
     if (params.getParams().size() != 2)
     {
@@ -26,7 +31,7 @@ void ReName::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
     if (params.getParams()[0][0] == '@')
     {
-        if (!dnaHash.isexistName(params.getParams()[0].substr(1)))
+        if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
             writer.write("name of DNA not found\n");
             return;
@@ -39,20 +44,20 @@ void ReName::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         id = castToSize(params.getParams()[0].substr(1));
 
-        if (!dnaHash.isexistId(id))
+        if (!dnaHash.isExistId(id))
         {
             writer.write("id of DNA not found\n");
             return;
         }
     }
 
-    if (dnaHash.isexistName(params.getParams()[1].substr(1)))
+    if (dnaHash.isExistName(params.getParams()[1].substr(1)))
     {
         writer.write("the name is already exists\n");
         return;
     }
 
-    dnaHash.getIDMap()[id]->setName(params.getParams()[1].substr(1));
+    dnaHash.setName(id, params.getParams()[1].substr(1));
     print(dnaHash, writer, id);
 }
 

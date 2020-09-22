@@ -9,6 +9,7 @@
 #include "../command/find.h"
 #include "../command/count.h"
 #include "../command/findAll.h"
+#include "../command/reName.h"
 
 
 std::map<std::string, ICommand*> Factory::s_commands;
@@ -39,6 +40,7 @@ void Factory::init()
     s_commands.insert(std::pair<std::string, ICommand*>("find", new Find));
     s_commands.insert(std::pair<std::string, ICommand*>("count", new Count));
     s_commands.insert(std::pair<std::string, ICommand*>("findAll", new FindAll));
+    s_commands.insert(std::pair<std::string, ICommand*>("reName", new ReName));
 }
 
 void Factory::release()
@@ -52,4 +54,5 @@ void Factory::release()
     delete s_commands.at("find");
     delete s_commands.at("count");
     delete s_commands.at("findAll");
+    delete s_commands.at("reName");
 }
