@@ -1,12 +1,14 @@
 #include <iostream>
-#include "Terminal.h"
+#include "terminal.h"
 #include "../write/IWriter.h"
-#include "../../controler/factory/Factory.h"
+#include "controler/factory/factory.h"
 #include "../read/ConsoleRead.h"
 
 
 void Terminal::doAction(IReader& reader, IWriter& writer, DnaHash& dnaHash)
 {
+    Factory::init();
+
     while(1)
     {
         Params p;
@@ -24,4 +26,6 @@ void Terminal::doAction(IReader& reader, IWriter& writer, DnaHash& dnaHash)
             std::cout << ex.what() << std::endl;
         };
     }
+
+    Factory::release();
 }

@@ -1,5 +1,5 @@
 #include "controler/System.h"
-#include "view/UI/Terminal.h"
+#include "view/UI/terminal.h"
 #include "view/read/ConsoleRead.h"
 #include "view/write/ConsoleWriter.h"
 
