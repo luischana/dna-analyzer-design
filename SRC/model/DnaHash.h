@@ -15,8 +15,10 @@ public:
     size_t findIdByName(const std::string& name);
     DnaMetaData* findInIdMap(size_t id);
 
-    bool isexistName(const std::string& name);
-    bool isexistId(size_t id);
+    bool isExistName(const std::string& name);
+    bool isExistId(size_t id);
+
+    void setName(size_t id, const std::string& name);
 
 private:
     std::map<std::string, size_t>  m_nameMap;

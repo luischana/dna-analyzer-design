@@ -28,7 +28,7 @@ void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
     if (params.getParams()[0][0] == '@')
     {
-        if (!dnaHash.isexistName(params.getParams()[0].substr(1)))
+        if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
             writer.write("name of DNA not found\n");
             return;
@@ -41,7 +41,7 @@ void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         idDnaOrginal = castToSize(params.getParams()[0].substr(1));
 
-        if (!dnaHash.isexistId(idDnaOrginal))
+        if (!dnaHash.isExistId(idDnaOrginal))
         {
             writer.write("id of DNA not found\n");
             return;
@@ -50,7 +50,7 @@ void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
     if (params.getParams()[1][0] == '@')
     {
-        if (!dnaHash.isexistName(params.getParams()[1].substr(1)))
+        if (!dnaHash.isExistName(params.getParams()[1].substr(1)))
         {
             writer.write("name of DNA not found\n");
             return;
@@ -63,7 +63,7 @@ void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         idDnaSub = castToSize(params.getParams()[1].substr(1));
 
-        if (!dnaHash.isexistId(idDnaSub))
+        if (!dnaHash.isExistId(idDnaSub))
         {
             writer.write("id of DNA not found\n");
             return;

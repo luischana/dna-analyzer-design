@@ -32,7 +32,7 @@ void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
     if (params.getParams()[0][0] == '@')
     {
-        if (!dnaHash.isexistName(params.getParams()[0].substr(1)))
+        if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
             writer.write("name of DNA not found\n");
             return;
@@ -45,7 +45,7 @@ void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         id = castToSize(params.getParams()[0].substr(1));
 
-        if (!dnaHash.isexistId(id))
+        if (!dnaHash.isExistId(id))
         {
             writer.write("id of DNA not found\n");
             return;

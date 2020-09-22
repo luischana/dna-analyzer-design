@@ -37,7 +37,7 @@ void New::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
         name = params.getParams()[1].substr(1);
     }
 
-    if (dnaHash.isexistName(name))
+    if (dnaHash.isExistName(name))
     {
         std::stringstream name1;
         name1 << name << '_' << dnaHash.getIDMap()[dnaHash.getNameMap()[name]]->getCount();

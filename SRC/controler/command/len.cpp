@@ -28,7 +28,7 @@ void Len::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
     std::istringstream(params.getParams()[0].c_str() + 1) >> id;
 
-    if (dnaHash.isexistId(id))
+    if (dnaHash.isExistId(id))
     {
         dna = dnaHash.getIDMap()[id]->getDnaSequence().castChar();
         print(writer, castToString(dna.length()));

@@ -17,12 +17,19 @@ DnaMetaData* DnaHash::findInIdMap(size_t id)
     return m_IDMap[id];
 }
 
-bool DnaHash::isexistName(const std::string &name)
+bool DnaHash::isExistName(const std::string &name)
 {
     return m_nameMap.find(name) != m_nameMap.end();
 }
 
-bool DnaHash::isexistId(size_t id)
+bool DnaHash::isExistId(size_t id)
 {
     return m_IDMap.find(id) != m_IDMap.end();
+}
+
+void DnaHash::setName(size_t id, const std::string& name)
+{
+    m_nameMap.erase(m_IDMap[id]->getName());
+    m_nameMap[name] = id;
+    m_IDMap[id]->setName(name);
 }
