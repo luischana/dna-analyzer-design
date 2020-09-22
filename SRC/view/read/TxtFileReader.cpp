@@ -16,6 +16,6 @@ void TxtFileReader::read()
 
     else
     {
-        std::cout << "Unable to open file" << std::endl;
+        throw std::ios_base::failure("Unable to open file");
     }
 }
