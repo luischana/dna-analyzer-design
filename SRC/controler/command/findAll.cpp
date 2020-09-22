@@ -2,7 +2,12 @@
 #include "../AuxiliaryFunc.h"
 
 
-FindAll::FindAll(const Params &params)
+void FindAll::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void FindAll::isValid(const Params& params)
 {
     if (params.getParams().size() != 2)
     {
