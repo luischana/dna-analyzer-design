@@ -9,6 +9,7 @@
 #include "../command/find.h"
 #include "../command/count.h"
 #include "../command/findAll.h"
+#include "../command/reName.h"
 
 
 ICommand* Factory::create(const Params& params)
@@ -56,6 +57,11 @@ ICommand* Factory::create(const Params& params)
     if (params.getCmdName() == "findAll")
     {
         return new FindAll(params);
+    }
+
+    if (params.getCmdName() == "reName")
+    {
+        return new ReName(params);
     }
 
     std::cout << "command not found :(" << std::endl;
