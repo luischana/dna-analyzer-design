@@ -2,7 +2,12 @@
 #include "new.h"
 
 
-New::New(const Params& params)
+void New::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void New::isValid(const Params& params)
 {
     if (params.getParams().empty() || params.getParams().size() > 2)
     {
