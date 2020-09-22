@@ -5,7 +5,6 @@
 #include "../params/Params.h"
 #include "../command/ICommand.h"
 
-
 class Factory {
 public:
     static ICommand* create(const Params& params);

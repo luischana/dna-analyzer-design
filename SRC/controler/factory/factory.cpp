@@ -5,6 +5,7 @@
 
 std::map<std::string, ICommand*> Factory::s_commands;
 
+
 ICommand* Factory::create(const Params& params)
 {
     try
