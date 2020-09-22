@@ -8,12 +8,12 @@ LenCommand::LenCommand(const Params &params)
 {
     if (params.getParams().size() != 1)
     {
-        throw std::invalid_argument("invalid num of arguments :(");
+        throw std::invalid_argument("INVALID NUM OF ARGUMENTS\n");
     }
 
     if (params.getParams()[0][0] != '#')
     {
-        throw std::invalid_argument("the command doesnt know which DNA to refer :(");
+        throw std::invalid_argument("THE COMMAND DOESN'T KNOW WHICH DNA TO REFER\n");
     }
 }
 
@@ -32,7 +32,7 @@ void LenCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
     else
     {
-        print(writer, castToString(id) + " not found :(");
+        print(writer, castToString(id) + " not found");
     }
 }
 
