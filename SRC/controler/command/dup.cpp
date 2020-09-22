@@ -1,54 +1,72 @@
 #include <sstream>
 #include "dup.h"
+#include "../AuxiliaryFunc.h"
 
 
 Dup::Dup(const Params &params)
 {
-    if (params.getParams().size() < 1 || params.getParams().size() > 2)
+    if (params.getParams().empty() || params.getParams().size() > 2)
     {
-        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS");
+        throw std::invalid_argument("INVALID NUM OF ARGUMENTS\n");
+    }
+
+    if (!(params.getParams()[0][0] == '@' || params.getParams()[0][0] == '#'))
+    {
+        throw std::invalid_argument("THE COMMAND DOESN'T KNOW WHICH DNA TO REFER\n");
+    }
+
+    if (params.getParams().size() == 2 && params.getParams()[1][0] != '@')
+    {
+        throw std::invalid_argument("INVALID ARGUMENTS\n");
     }
 }
 
 void Dup::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     std::string name;
+    std::string dna;
     size_t id = 0;
 
-    if (params.getParams().size() == 1)
+    if (params.getParams()[0][0] == '@')
     {
-        const char* temp = params.getParams()[0].c_str();
-
-        if (params.getParams()[0][0] == '#')
+        if (!dnaHash.isexistName(params.getParams()[0].substr(1)))
         {
-            std::istringstream(temp + 1) >> id;
-            name = dnaHash.getIDMap()[id]->getName();
+            writer.write("name of DNA not found\n");
+            return;
         }
 
-        if (params.getParams()[0][0] == '@')
-        {
-            name = dnaHash.getIDMap()[dnaHash.getNameMap()[temp + 1]]->getName();
-            id = dnaHash.getNameMap()[temp + 1];
-        }
-
-        std::stringstream tempName;
-        tempName << name << '_' << dnaHash.getIDMap()[dnaHash.getNameMap()[name]]->getCount();
-        name =  tempName.str();
+        id = dnaHash.findIdByName(params.getParams()[0].substr(1));
     }
 
     else
     {
-        std::string oldName;
-        oldName = params.getParams()[0];
+        id = castToSize(params.getParams()[0].substr(1));
 
-        id = dnaHash.getNameMap()[oldName];
-        name = params.getParams()[1].c_str() + 1;
+        if (!dnaHash.isexistId(id))
+        {
+            writer.write("id of DNA not found\n");
+            return;
+        }
     }
 
-    std::string dna;
-    dna = dnaHash.getIDMap()[id]->getDnaSequence().castChar();
+    name = dnaHash.getIDMap()[id]->getName();
 
-    DnaMetaData* newDnaSequence = new DnaMetaData(DnaSequence(dna), name, (std::string)"dup");
+    if (params.getParams().size() == 1)
+    {
+        std::stringstream newName;
+        newName << name << '_' << dnaHash.getIDMap()[dnaHash.getNameMap()[name]]->getCount();
+        name = newName.str();
+    }
+
+    else
+    {
+        name = params.getParams()[1].substr(1);
+    }
+
+    std::string dnaSequence;
+    dnaSequence = dnaHash.getIDMap()[id]->getDnaSequence().castChar();
+
+    DnaMetaData* newDnaSequence = new DnaMetaData(DnaSequence(dnaSequence), name, (std::string)"dup");
     dnaHash.add(newDnaSequence);
     print(dnaHash, writer);
 }
