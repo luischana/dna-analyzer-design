@@ -2,6 +2,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <iostream>
+#include <vector>
 #include "DnaSequence.h"
 
 
@@ -148,7 +149,7 @@ std::ostream& operator<<(std::ostream &out, const DnaSequence &dnaSequence)
     return out;
 }
 
-DnaSequence DnaSequence::slice(size_t startIdx, size_t endIdx)
+DnaSequence DnaSequence::slice(size_t startIdx, size_t endIdx) const
 {
     if (startIdx > endIdx)
     {
@@ -190,7 +191,7 @@ size_t DnaSequence::find(const DnaSequence& dnaSequence) const
     return strM_DnaSequence.find(strDnaSequence);
 }
 
-size_t DnaSequence::count(const DnaSequence& dnaSequence)
+size_t DnaSequence::count(const DnaSequence& dnaSequence) const
 {
     size_t count = 0;
 
@@ -205,7 +206,7 @@ size_t DnaSequence::count(const DnaSequence& dnaSequence)
     return count;
 }
 
-std::list<size_t>DnaSequence::findAll(const DnaSequence &dnaSequence)
+std::list<size_t>DnaSequence::findAll(const DnaSequence &dnaSequence) const
 {
     std::list<size_t> AllDna;
 
