@@ -46,6 +46,12 @@ void ReName::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
         }
     }
 
+    if (dnaHash.isexistName(params.getParams()[1].substr(1)))
+    {
+        writer.write("the name is already exists\n");
+        return;
+    }
+
     dnaHash.getIDMap()[id]->setName(params.getParams()[1].substr(1));
     print(dnaHash, writer, id);
 }
