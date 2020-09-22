@@ -3,7 +3,12 @@
 #include "../AuxiliaryFunc.h"
 
 
-Slice::Slice(const Params &params)
+void Slice::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void Slice::isValid(const Params& params)
 {
     if (!(params.getParams().size() == 3 || params.getParams().size() == 5))
     {
