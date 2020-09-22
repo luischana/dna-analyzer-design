@@ -1,12 +1,13 @@
 #include <iostream>
 #include "Factory.h"
-#include "controler/command/new.h"
-#include "controler/command/load.h"
-#include "controler/command/save.h"
-#include "controler/command/dup.h"
-#include "controler/command/len.h"
-#include "controler/command/slice.h"
-#include "controler/command/find.h"
+#include "../command/new.h"
+#include "../command/load.h"
+#include "../command/save.h"
+#include "../command/dup.h"
+#include "../command/len.h"
+#include "../command/slice.h"
+#include "../command/find.h"
+#include "../command/count.h"
 
 
 ICommand* Factory::create(const Params& params)
@@ -44,6 +45,11 @@ ICommand* Factory::create(const Params& params)
     if (params.getCmdName() == "find")
     {
         return new Find(params);
+    }
+
+    if (params.getCmdName() == "count")
+    {
+        return new Count(params);
     }
 
     std::cout << "command not found :(" << std::endl;
