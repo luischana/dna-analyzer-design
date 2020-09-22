@@ -8,17 +8,17 @@ SliceCommand::SliceCommand(const Params &params)
 {
     if (!(params.getParams().size() == 3 || params.getParams().size() == 5))
     {
-        throw std::invalid_argument("invalid num of arguments :(\n");
+        throw std::invalid_argument("INVALID NUM OF ARGUMENTS\n");
     }
 
-    if (!(params.getParams()[0][0] == '#' || params.getParams()[0][0] == '@'))
+    if (!(params.getParams()[0][0] == '@' || params.getParams()[0][0] == '#'))
     {
-        throw std::invalid_argument("the command doesnt know which DNA to refer :(\n");
+        throw std::invalid_argument("THE COMMAND DOESN'T KNOW WHICH DNA TO REFER\n");
     }
 
     if (params.getParams().size() == 5 && (params.getParams()[3] != ":" || params.getParams()[4][0] != '@'))
     {
-        throw std::invalid_argument("invalid arguments :(\n");
+        throw std::invalid_argument("INVALID ARGUMENTS\n");
     }
 }
 
@@ -26,18 +26,7 @@ void SliceCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     size_t id = 0;
 
-    if (params.getParams()[0][0] == '#')
-    {
-        id = castToSize(params.getParams()[0].substr(1));
-
-        if (!dnaHash.isexistId(id))
-        {
-            writer.write("id of DNA not found\n");
-            return;
-        }
-    }
-
-    else
+    if (params.getParams()[0][0] == '@')
     {
         if (!dnaHash.isexistName(params.getParams()[0].substr(1)))
         {
@@ -46,6 +35,17 @@ void SliceCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
         }
 
         id = dnaHash.findIdByName(params.getParams()[0].substr(1));
+    }
+
+    else
+    {
+        id = castToSize(params.getParams()[0].substr(1));
+
+        if (!dnaHash.isexistId(id))
+        {
+            writer.write("id of DNA not found\n");
+            return;
+        }
     }
 
     size_t fromInd = castToSize(params.getParams()[1].c_str());
