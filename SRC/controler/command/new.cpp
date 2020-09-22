@@ -4,9 +4,14 @@
 
 New::New(const Params& params)
 {
-    if (params.getParams().size() < 1 || params.getParams().size() > 2)
+    if (params.getParams().empty() || params.getParams().size() > 2)
     {
-        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS");
+        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS\n");
+    }
+
+    if (params.getParams().size() == 2 && params.getParams()[1][0] != '@')
+    {
+        throw std::invalid_argument("INVALID COMMAND\n");
     }
 }
 
@@ -15,7 +20,6 @@ void New::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
     static size_t count = 0;
     std::stringstream stringstream;
     std::string name;
-//    std::string tempName;
 
     if (params.getParams().size() == 1)
     {
@@ -25,21 +29,10 @@ void New::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
     else
     {
-        const char* tempName = params.getParams()[1].c_str();
-
-        if (params.getParams()[1][0] == '@')
-        {
-            //TODO substr
-            name = tempName + 1;
-        }
-
-        else
-        {
-            name = tempName;
-        }
+        name = params.getParams()[1].substr(1);
     }
 
-    if (dnaHash.getNameMap().find(name) != dnaHash.getNameMap().end())
+    if (dnaHash.isexistName(name))
     {
         std::stringstream name1;
         name1 << name << '_' << dnaHash.getIDMap()[dnaHash.getNameMap()[name]]->getCount();
