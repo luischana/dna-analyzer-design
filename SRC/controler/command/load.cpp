@@ -4,7 +4,12 @@
 #include "../../view/read/RawdnaFileReader.h"
 
 
-Load::Load(const Params& params)
+void Load::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void Load::isValid(const Params& params)
 {
     if (params.getParams().empty() || params.getParams().size() > 2)
     {
