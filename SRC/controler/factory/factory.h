@@ -9,6 +9,11 @@
 class Factory {
 public:
     static ICommand* create(const Params& params);
+    static void init();
+    static void release();
+
+private:
+    static std::map<std::string, ICommand*> s_commands;
 };
 
 

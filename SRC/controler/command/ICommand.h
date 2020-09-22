@@ -8,6 +8,7 @@
 
 class ICommand {
 public:
+    virtual void createCommand(const Params& params) = 0;
     virtual void run(const Params& params, DnaHash& dnaHash, IWriter& writer) = 0;
 };
 
