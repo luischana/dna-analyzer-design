@@ -1,10 +1,9 @@
-#include <sstream>
-#include <cstdlib>
-#include "SliceCommand.h"
+#include <iostream>
+#include "slice.h"
 #include "../AuxiliaryFunc.h"
 
 
-SliceCommand::SliceCommand(const Params &params)
+Slice::Slice(const Params &params)
 {
     if (!(params.getParams().size() == 3 || params.getParams().size() == 5))
     {
@@ -22,7 +21,7 @@ SliceCommand::SliceCommand(const Params &params)
     }
 }
 
-void SliceCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     size_t id = 0;
 
@@ -85,7 +84,7 @@ void SliceCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     }
 }
 
-void SliceCommand::print(DnaHash &dnaHash, IWriter &writer, size_t id)
+void Slice::print(DnaHash &dnaHash, IWriter &writer, size_t id)
 {
     std::stringstream stringstream;
 

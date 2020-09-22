@@ -1,10 +1,9 @@
-#include <sstream>
-#include <string>
-#include "LenCommand.h"
+#include <iostream>
+#include "len.h"
 #include "../AuxiliaryFunc.h"
 
 
-LenCommand::LenCommand(const Params &params)
+Len::Len(const Params &params)
 {
     if (params.getParams().size() != 1)
     {
@@ -17,7 +16,7 @@ LenCommand::LenCommand(const Params &params)
     }
 }
 
-void LenCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+void Len::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     std::string dna;
     size_t id = 0;
@@ -36,7 +35,7 @@ void LenCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     }
 }
 
-void LenCommand::print(IWriter &writer, std::string str)
+void Len::print(IWriter &writer, std::string str)
 {
     writer.write(str + "\n");
 }

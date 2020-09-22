@@ -1,49 +1,49 @@
 #include <iostream>
 #include "Factory.h"
-#include "../command/NewCommand.h"
-#include "../command/LoadCommand.h"
-#include "../command/SaveCommand.h"
-#include "../command/DupCommand.h"
-#include "../command/LenCommand.h"
-#include "../command/SliceCommand.h"
-#include "../command/FindCommand.h"
+#include "controler/command/new.h"
+#include "controler/command/load.h"
+#include "controler/command/save.h"
+#include "controler/command/dup.h"
+#include "controler/command/len.h"
+#include "controler/command/slice.h"
+#include "controler/command/find.h"
 
 
 ICommand* Factory::create(const Params& params)
 {
     if (params.getCmdName() == "new")
     {
-        return new NewCommand(params);
+        return new New(params);
     }
 
     if (params.getCmdName() == "load")
     {
-        return new LoadCommand(params);
+        return new Load(params);
     }
 
     if (params.getCmdName() == "save")
     {
-        return new SaveCommand(params);
+        return new Save(params);
     }
 
     if (params.getCmdName() == "dup")
     {
-        return new DupCommand(params);
+        return new Dup(params);
     }
 
     if (params.getCmdName() == "len")
     {
-        return new LenCommand(params);
+        return new Len(params);
     }
 
     if (params.getCmdName() == "slice")
     {
-        return new SliceCommand(params);
+        return new Slice(params);
     }
 
     if (params.getCmdName() == "find")
     {
-        return new FindCommand(params);
+        return new Find(params);
     }
 
     std::cout << "command not found :(" << std::endl;

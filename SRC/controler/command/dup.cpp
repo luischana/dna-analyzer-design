@@ -1,8 +1,8 @@
 #include <sstream>
-#include "DupCommand.h"
+#include "dup.h"
 
 
-DupCommand::DupCommand(const Params &params)
+Dup::Dup(const Params &params)
 {
     if (params.getParams().size() < 1 || params.getParams().size() > 2)
     {
@@ -10,7 +10,7 @@ DupCommand::DupCommand(const Params &params)
     }
 }
 
-void DupCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+void Dup::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     std::string name;
     size_t id = 0;
@@ -53,7 +53,7 @@ void DupCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     print(dnaHash, writer);
 }
 
-void DupCommand::print(DnaHash &dnaHash, IWriter &writer)
+void Dup::print(DnaHash &dnaHash, IWriter &writer)
 {
     std::stringstream stringstream;
 

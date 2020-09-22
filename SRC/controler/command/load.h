@@ -1,5 +1,5 @@
-#ifndef SRC_LOADCOMMAND_H
-#define SRC_LOADCOMMAND_H
+#ifndef SRC_LOAD_H
+#define SRC_LOAD_H
 
 
 #include <string>
@@ -7,12 +7,12 @@
 #include "ICommand.h"
 #include "CreationCommand.h"
 
-class LoadCommand:public CreationCommand {
+class Load: public CreationCommand {
 public:
-    LoadCommand(const Params& params);
+    Load(const Params& params);
     /*virtual*/ void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
     void print(DnaHash& dnaHash, IWriter& writer);
 };
 
 
-#endif //SRC_LOADCOMMAND_H
+#endif //SRC_LOAD_H

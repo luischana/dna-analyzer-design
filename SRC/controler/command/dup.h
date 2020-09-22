@@ -1,15 +1,15 @@
-#ifndef SRC_DUPCOMMAND_H
-#define SRC_DUPCOMMAND_H
+#ifndef SRC_DUP_H
+#define SRC_DUP_H
 
 
 #include "CreationCommand.h"
 
-class DupCommand: public CreationCommand {
+class Dup: public CreationCommand {
 public:
-    DupCommand(const Params& params);
+    Dup(const Params& params);
     /*virtual*/ void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
     void print(DnaHash& dnaHash, IWriter& writer);
 };
 
 
-#endif //SRC_DUPCOMMAND_H
+#endif //SRC_DUP_H

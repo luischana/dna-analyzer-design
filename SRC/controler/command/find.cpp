@@ -1,9 +1,9 @@
-#include <sstream>
-#include "FindCommand.h"
+#include <iostream>
+#include "find.h"
 #include "../AuxiliaryFunc.h"
 
 
-FindCommand::FindCommand(const Params &params)
+Find::Find(const Params &params)
 {
     if (params.getParams().size() != 2)
     {
@@ -16,7 +16,7 @@ FindCommand::FindCommand(const Params &params)
     }
 }
 
-void FindCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+void Find::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     size_t idDnaOrginal;
     size_t idDnaSub = 0;
@@ -85,7 +85,7 @@ void FindCommand::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     print(writer, castToString(indexFind));
 }
 
-void FindCommand::print(const IWriter& writer, const std::string& string)
+void Find::print(const IWriter& writer, const std::string& string)
 {
     writer.write(string + "\n");
 }

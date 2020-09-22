@@ -1,9 +1,9 @@
 #include <sstream>
-#include "SaveCommand.h"
+#include "save.h"
 #include "../../view/write/TxtFileWriter.h"
 
 
-SaveCommand::SaveCommand(const Params& params)
+Save::Save(const Params& params)
 {
     if (params.getParams().size() < 1 || params.getParams().size() > 2)
     {
@@ -11,7 +11,7 @@ SaveCommand::SaveCommand(const Params& params)
     }
 }
 
-void SaveCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
+void Save::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 {
     std::string name;
 

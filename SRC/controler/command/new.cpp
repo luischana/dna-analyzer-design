@@ -1,10 +1,8 @@
-#include <stdexcept>
 #include <iostream>
-#include <cstring>
-#include "NewCommand.h"
+#include "new.h"
 
 
-NewCommand::NewCommand(const Params& params)
+New::New(const Params& params)
 {
     if (params.getParams().size() < 1 || params.getParams().size() > 2)
     {
@@ -12,7 +10,7 @@ NewCommand::NewCommand(const Params& params)
     }
 }
 
-void NewCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
+void New::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 {
     static size_t count = 0;
     std::stringstream stringstream;
@@ -31,6 +29,7 @@ void NewCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
         if (params.getParams()[1][0] == '@')
         {
+            //TODO substr
             name = tempName + 1;
         }
 
@@ -52,7 +51,7 @@ void NewCommand::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
     print(dnaHash, writer);
 }
 
-void NewCommand::print(DnaHash& dnaHash, IWriter& writer)
+void New::print(DnaHash& dnaHash, IWriter& writer)
 {
     std::stringstream stringstream;
 
