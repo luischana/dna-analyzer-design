@@ -4,6 +4,7 @@
 #include "../command/load.h"
 #include "../command/save.h"
 #include "../command/dup.h"
+#include "../command/len.h"
 
 
 std::map<std::string, ICommand*> Factory::s_commands;
@@ -29,6 +30,7 @@ void Factory::init()
     s_commands.insert(std::pair<std::string, ICommand*>("load", new Load));
     s_commands.insert(std::pair<std::string, ICommand*>("save", new Save));
     s_commands.insert(std::pair<std::string, ICommand*>("dup", new Dup));
+    s_commands.insert(std::pair<std::string, ICommand*>("len", new Len));
 }
 
 void Factory::release()
@@ -37,4 +39,5 @@ void Factory::release()
     delete s_commands.at("load");
     delete s_commands.at("save");
     delete s_commands.at("dup");
+    delete s_commands.at("len");
 }

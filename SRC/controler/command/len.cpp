@@ -3,7 +3,12 @@
 #include "../AuxiliaryFunc.h"
 
 
-Len::Len(const Params &params)
+void Len::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void Len::isValid(const Params& params)
 {
     if (params.getParams().size() != 1)
     {
