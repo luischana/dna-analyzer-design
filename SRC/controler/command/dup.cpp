@@ -3,7 +3,12 @@
 #include "../AuxiliaryFunc.h"
 
 
-Dup::Dup(const Params &params)
+void Dup::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void Dup::isValid(const Params& params)
 {
     if (params.getParams().empty() || params.getParams().size() > 2)
     {
