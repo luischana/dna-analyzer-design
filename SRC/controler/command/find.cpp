@@ -3,7 +3,12 @@
 #include "../AuxiliaryFunc.h"
 
 
-Find::Find(const Params &params)
+void Find::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void Find::isValid(const Params& params)
 {
     if (params.getParams().size() != 2)
     {

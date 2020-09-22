@@ -6,7 +6,8 @@
 
 class Find: public AnalysisCommand {
 public:
-    Find(const Params& params);
+    /*virtual*/ void createCommand(const Params& params);
+    void isValid(const Params& params);
     /*virtual*/ void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
     void print(const IWriter& writer, const std::string& string);
 };
