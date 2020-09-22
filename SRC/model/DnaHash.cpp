@@ -12,6 +12,11 @@ size_t DnaHash::findIdByName(const std::string& name)
     return m_nameMap[name];
 }
 
+DnaMetaData* DnaHash::findInIdMap(size_t id)
+{
+    return m_IDMap[id];
+}
+
 bool DnaHash::isexistName(const std::string &name)
 {
     return m_nameMap.find(name) != m_nameMap.end();

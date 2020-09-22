@@ -13,6 +13,7 @@ public:
     std::map<size_t, DnaMetaData*>& getIDMap()   { return m_IDMap; }
 
     size_t findIdByName(const std::string& name);
+    DnaMetaData* findInIdMap(size_t id);
 
     bool isexistName(const std::string& name);
     bool isexistId(size_t id);
