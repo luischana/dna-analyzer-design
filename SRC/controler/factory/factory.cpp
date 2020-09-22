@@ -10,6 +10,7 @@
 #include "../command/count.h"
 #include "../command/findAll.h"
 #include "../command/reName.h"
+#include "../command/replace.h"
 
 
 std::map<std::string, ICommand*> Factory::s_commands;
@@ -25,7 +26,7 @@ ICommand* Factory::create(const Params& params)
 
     catch(std::out_of_range &ex)
     {
-
+        return s_commands.at("new");
     }
 }
 
@@ -41,6 +42,7 @@ void Factory::init()
     s_commands.insert(std::pair<std::string, ICommand*>("count", new Count));
     s_commands.insert(std::pair<std::string, ICommand*>("findAll", new FindAll));
     s_commands.insert(std::pair<std::string, ICommand*>("reName", new ReName));
+    s_commands.insert(std::pair<std::string, ICommand*>("replace", new Replace));
 }
 
 void Factory::release()
@@ -55,4 +57,5 @@ void Factory::release()
     delete s_commands.at("count");
     delete s_commands.at("findAll");
     delete s_commands.at("reName");
+    delete s_commands.at("replace");
 }
