@@ -6,9 +6,14 @@
 
 Load::Load(const Params& params)
 {
-    if (params.getParams().size() < 1 || params.getParams().size() > 2)
+    if (params.getParams().empty() || params.getParams().size() > 2)
     {
-        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS");
+        throw std::invalid_argument("INVALID NUMS OF ARGUMENTS\n");
+    }
+
+    if (params.getParams().size() == 2 && params.getParams()[1][0] != '@')
+    {
+        throw std::invalid_argument("INVALID COMMAND\n");
     }
 }
 
@@ -28,7 +33,7 @@ void Load::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
     else
     {
-        name = params.getParams()[1];
+        name = params.getParams()[1].substr(1);
     }
 
     DnaMetaData* newDnaSequence = new DnaMetaData(fileName.getStr(), name, (std::string)"load");
@@ -39,14 +44,15 @@ void Load::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 void Load::print(DnaHash& dnaHash, IWriter& writer)
 {
     std::stringstream stringstream;
-    std::string name = dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence().castChar();
-    size_t len = name.length();
+    DnaSequence dnaSequence = dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence();
+    size_t len = dnaSequence.lenght();
+    std::string dna = dnaSequence.castChar();
 
     if (len > 40)
     {
-        name = name.substr(0,31) + "..." + name.substr(len-3,len-1);
+        dna = dna.substr(0,31) + "..." + dna.substr(len-3,len-1);
     }
 
     stringstream << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();
-    writer.write("[" + stringstream.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + name + '\n');
+    writer.write("[" + stringstream.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dna + '\n');
 }
