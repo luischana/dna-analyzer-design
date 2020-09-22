@@ -7,6 +7,7 @@
 #include "../command/len.h"
 #include "../command/slice.h"
 #include "../command/find.h"
+#include "../command/count.h"
 
 
 std::map<std::string, ICommand*> Factory::s_commands;
@@ -35,6 +36,7 @@ void Factory::init()
     s_commands.insert(std::pair<std::string, ICommand*>("len", new Len));
     s_commands.insert(std::pair<std::string, ICommand*>("slice", new Slice));
     s_commands.insert(std::pair<std::string, ICommand*>("find", new Find));
+    s_commands.insert(std::pair<std::string, ICommand*>("count", new Count));
 }
 
 void Factory::release()
@@ -46,4 +48,5 @@ void Factory::release()
     delete s_commands.at("len");
     delete s_commands.at("slice");
     delete s_commands.at("find");
+    delete s_commands.at("count");
 }

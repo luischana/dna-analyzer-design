@@ -2,7 +2,12 @@
 #include "../AuxiliaryFunc.h"
 
 
-Count::Count(const Params &params)
+void Count::createCommand(const Params &params)
+{
+    isValid(params);
+}
+
+void Count::isValid(const Params& params)
 {
     if (params.getParams().size() != 2)
     {
