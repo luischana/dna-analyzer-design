@@ -1,4 +1,4 @@
-#include <sstream>
+#include <iostream>
 #include "replace.h"
 #include "../AuxiliaryFunc.h"
 
@@ -8,9 +8,9 @@ void Replace::createCommand(const Params& params)
     isValid(params);
 }
 
-void Replace::isValid(const Params& params)
+void Replace::isValid(const Params &params)
 {
-    if (!(params.getParams().size() == 3 || params.getParams().size() == 5))
+    if (params.getParams().size() < 3 && params.getParams().size() % 2 != 1)
     {
         throw std::invalid_argument("INVALID NUM OF ARGUMENTS\n");
     }
@@ -19,14 +19,40 @@ void Replace::isValid(const Params& params)
     {
         throw std::invalid_argument("THE COMMAND DOESN'T KNOW WHICH DNA TO REFER\n");
     }
-
-    if (params.getParams().size() == 5 && (params.getParams()[3] != ":" || params.getParams()[4][0] != '@'))
-    {
-        throw std::invalid_argument("INVALID ARGUMENTS\n");
-    }
 }
 
-void Replace::run(const Params &params, DnaHash& dnaHash, IWriter& writer)
+std::string replaceDna(const Params& params, std::string seq)
+{
+    size_t i = 1;
+    size_t index;
+    std::string newLetter;
+    size_t len = params.getParams().size() - 1;
+
+    if (params.getParams()[len-1][0] == ':')
+    {
+        len -= 2;
+    }
+
+    while(i < len)
+    {
+        index = castToSize(params.getParams()[i]);
+        newLetter = params.getParams()[i+1];
+
+        if (index >= seq.length())
+        {
+            std::cout << "index not found\n"<< std::endl;
+            break;
+        }
+
+        seq.replace(index, newLetter.length(), newLetter);
+
+        i += 2;
+    }
+
+    return seq;
+}
+
+void Replace::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     size_t id = 0;
 
@@ -53,22 +79,21 @@ void Replace::run(const Params &params, DnaHash& dnaHash, IWriter& writer)
     }
 
     std::string seq = dnaHash.getIDMap()[id]->getDnaSequence().castChar();
-    size_t index = castToSize(params.getParams()[1]);
-    std::string newSeq = params.getParams()[2];
+    size_t len = params.getParams().size() - 1;
 
-    DnaSequence replaceDna(seq.replace(index, newSeq.length(), newSeq));
+    DnaSequence replaceDnaSeq(replaceDna(params, seq));
 
-    if (params.getParams().size() == 3)
+    if (params.getParams()[len-1][0] != ':')
     {
-        dnaHash.getIDMap()[id]->setSeq(replaceDna);
+        dnaHash.getIDMap()[id]->setSeq(replaceDnaSeq);
         print(dnaHash, writer, id);
     }
 
-    else /*param.getParam().size() == 5*/
+    else
     {
         std::string newName;
 
-        if (params.getParams()[4][1] == '@')
+        if (params.getParams()[len][1] == '@')
         {
             std::string oldName;
             oldName = dnaHash.getIDMap()[id]->getName();
@@ -80,14 +105,13 @@ void Replace::run(const Params &params, DnaHash& dnaHash, IWriter& writer)
 
         else
         {
-            newName = params.getParams()[4].substr(1);
+            newName = params.getParams()[len].substr(1);
         }
 
-        DnaMetaData* newDnaSequence = new DnaMetaData(replaceDna, newName, (std::string)"replace");
+        DnaMetaData* newDnaSequence = new DnaMetaData(replaceDnaSeq, newName, (std::string)"replace");
         dnaHash.add(newDnaSequence);
         print(dnaHash, writer, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
     }
-
 }
 
 void Replace::print(DnaHash &dnaHash, IWriter &writer, size_t id)
