@@ -12,6 +12,7 @@
 #include "../command/rename.h"
 #include "../command/replace.h"
 #include "../command/concat.h"
+#include "../command/help.h"
 
 
 std::map<std::string, ICommand*> Factory::s_commands;
@@ -45,6 +46,7 @@ void Factory::init()
     s_commands.insert(std::pair<std::string, ICommand*>("rename", new Rename));
     s_commands.insert(std::pair<std::string, ICommand*>("replace", new Replace));
     s_commands.insert(std::pair<std::string, ICommand*>("concat", new Concat));
+    s_commands.insert(std::pair<std::string, ICommand*>("help", new Help));
 }
 
 void Factory::release()
@@ -61,4 +63,5 @@ void Factory::release()
     delete s_commands.at("rename");
     delete s_commands.at("replace");
     delete s_commands.at("concat");
+    delete s_commands.at("help");
 }
