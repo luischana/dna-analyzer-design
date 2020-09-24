@@ -1,13 +1,13 @@
-#include "reName.h"
+#include "rename.h"
 #include "../AuxiliaryFunc.h"
 
 
-void ReName::createCommand(const Params &params)
+void Rename::createCommand(const Params &params)
 {
     isValid(params);
 }
 
-void ReName::isValid(const Params& params)
+void Rename::isValid(const Params& params)
 {
     if (params.getParams().size() != 2)
     {
@@ -25,7 +25,7 @@ void ReName::isValid(const Params& params)
     }
 }
 
-void ReName::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+void Rename::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 {
     size_t id = 0;
 
@@ -61,7 +61,7 @@ void ReName::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     print(dnaHash, writer, id);
 }
 
-void ReName::print(DnaHash &dnaHash, IWriter &writer, size_t id)
+void Rename::print(DnaHash &dnaHash, IWriter &writer, size_t id)
 {
     std::stringstream stringstream;
 

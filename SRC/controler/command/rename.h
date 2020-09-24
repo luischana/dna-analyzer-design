@@ -4,7 +4,7 @@
 #define SRC_RENAME_H
 
 
-class ReName: public ManagementCommand {
+class Rename: public ManagementCommand {
 public:
     /*virtual*/ void createCommand(const Params& params);
     void isValid(const Params& params);
