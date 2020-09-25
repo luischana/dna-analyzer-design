@@ -12,6 +12,7 @@ void Help::initializeMapAbout()
     m_mapAbout.insert(std::pair<std::string, std::string >("replace","Replaces the letter in the index of seq by new_letter"));
     m_mapAbout.insert(std::pair<std::string, std::string >("concat","Concatenates seq_2 at the end of seq_1"));
     m_mapAbout.insert(std::pair<std::string, std::string >("rename","Renames the name of the sequence to the new name"));
+    m_mapAbout.insert(std::pair<std::string, std::string >("del","Deletes that sequence"));
     m_mapAbout.insert(std::pair<std::string, std::string >("save","Saves seq to a file"));
     m_mapAbout.insert(std::pair<std::string, std::string >("len","Prints the length of the sequence"));
     m_mapAbout.insert(std::pair<std::string, std::string >("find","Finds a sub-sequence within a sequence"));
