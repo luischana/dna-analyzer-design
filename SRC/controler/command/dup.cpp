@@ -1,9 +1,8 @@
-#include <sstream>
 #include "dup.h"
 #include "../AuxiliaryFunc.h"
 
 
-void Dup::createCommand(const Params &params)
+void Dup::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -26,18 +25,15 @@ void Dup::isValid(const Params& params)
     }
 }
 
-void Dup::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Dup::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
-    std::string name;
-    std::string dna;
     size_t id = 0;
 
     if (params.getParams()[0][0] == '@')
     {
         if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         id = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -49,12 +45,11 @@ void Dup::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(id))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
 
-    name = dnaHash.getIDMap()[id]->getName();
+    std::string name = dnaHash.getIDMap()[id]->getName();
 
     if (params.getParams().size() == 1)
     {
@@ -68,19 +63,13 @@ void Dup::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
         name = params.getParams()[1].substr(1);
     }
 
-    std::string dnaSequence;
-    dnaSequence = dnaHash.getIDMap()[id]->getDnaSequence().castChar();
+    DnaSequence dna = dnaHash.getIDMap()[id]->getDnaSequence();
 
-    DnaMetaData* newDnaSequence = new DnaMetaData(DnaSequence(dnaSequence), name, (std::string)"dup");
-    dnaHash.add(newDnaSequence);
-    print(dnaHash, writer);
-}
+    DnaMetaData* newDna = new DnaMetaData(dna, name, (std::string)"new");
+    dnaHash.add(newDna);
 
-void Dup::print(DnaHash &dnaHash, IWriter &writer)
-{
-    std::stringstream stringstream;
+    std::stringstream string;
+    string << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();
 
-    stringstream << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();
-
-    writer.write("[" + stringstream.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence().castChar() + '\n');
+    return ("[" + string.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence().castChar() + '\n');
 }

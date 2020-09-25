@@ -18,14 +18,15 @@ void Help::initializeMapAbout()
     m_mapAbout.insert(std::pair<std::string, std::string >("count","Returns the number of instances of the sub-sequence within the larger sequence"));
     m_mapAbout.insert(std::pair<std::string, std::string >("findall","Return all the indices where the sub-sequence appears"));
     m_mapAbout.insert(std::pair<std::string, std::string >("help","Shows a short explanation of command"));
+    m_mapAbout.insert(std::pair<std::string, std::string >("quit","Prints a goodbye message and the application exists"));
 }
 
-void Help::createCommand(const Params &params)
+void Help::createCommand(const Params& params)
 {
     isValid(params);
 }
 
-void Help::isValid(const Params &params)
+void Help::isValid(const Params& params)
 {
     if (params.getParams().size() > 1)
     {
@@ -33,7 +34,7 @@ void Help::isValid(const Params &params)
     }
 }
 
-void Help::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Help::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     std::string commands;
 
@@ -41,24 +42,24 @@ void Help::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         std::map<std::string, std::string>::iterator iter;
 
-        for(iter = m_mapAbout.begin(); iter!=m_mapAbout.end(); ++iter)
+        for(iter = m_mapAbout.begin(); iter != m_mapAbout.end(); ++iter)
         {
             commands += iter->first + '\n';
         }
 
-        writer.write(commands);
+        return commands;
     }
 
     else
     {
         if (m_mapAbout.find(params.getParams()[0]) != m_mapAbout.end())
         {
-            writer.write(m_mapAbout[params.getParams()[0]] + '\n');
+            return (m_mapAbout[params.getParams()[0]] + '\n');
         }
 
         else
         {
-            writer.write("This comand not exist\n");
+            return "This comand not exist\n";
         }
     }
 }

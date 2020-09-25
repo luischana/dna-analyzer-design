@@ -1,10 +1,9 @@
 #include <sstream>
 #include "load.h"
-#include "../../model/DnaMetaData.h"
 #include "../../view/read/RawdnaFileReader.h"
 
 
-void Load::createCommand(const Params &params)
+void Load::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -22,7 +21,7 @@ void Load::isValid(const Params& params)
     }
 }
 
-void Load::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
+std::string Load::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     RawdnaFileReader fileName(params.getParams()[0].c_str());
     fileName.read();
@@ -41,12 +40,13 @@ void Load::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
         name = params.getParams()[1].substr(1);
     }
 
-    DnaMetaData* newDnaSequence = new DnaMetaData(fileName.getStr(), name, (std::string)"load");
-    dnaHash.add(newDnaSequence);
-    print(dnaHash, writer);
+    DnaMetaData* newDna = new DnaMetaData(fileName.getStr(), name, (std::string)"up to data");
+    dnaHash.add(newDna);
+
+    return castStr(dnaHash);
 }
 
-void Load::print(DnaHash& dnaHash, IWriter& writer)
+std::string Load::castStr(DnaHash& dnaHash)
 {
     std::stringstream stringstream;
     DnaSequence dnaSequence = dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence();
@@ -59,5 +59,5 @@ void Load::print(DnaHash& dnaHash, IWriter& writer)
     }
 
     stringstream << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();
-    writer.write("[" + stringstream.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dna + '\n');
+    return ("[" + stringstream.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dna + '\n');
 }

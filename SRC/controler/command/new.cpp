@@ -1,8 +1,8 @@
-#include <iostream>
+#include <sstream>
 #include "new.h"
 
 
-void New::createCommand(const Params &params)
+void New::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -20,7 +20,7 @@ void New::isValid(const Params& params)
     }
 }
 
-void New::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
+std::string New::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     static size_t count = 0;
     std::stringstream stringstream;
@@ -44,16 +44,11 @@ void New::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
         name =  name1.str();
     }
 
-    DnaMetaData* newDnaSequence = new DnaMetaData(params.getParams()[0], name, (std::string)"new");
-    dnaHash.add(newDnaSequence);
-    print(dnaHash, writer);
-}
+    DnaMetaData* newDna = new DnaMetaData(params.getParams()[0], name, (std::string)"new");
+    dnaHash.add(newDna);
 
-void New::print(DnaHash& dnaHash, IWriter& writer)
-{
-    std::stringstream stringstream;
+    std::stringstream string;
+    string << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();
 
-    stringstream << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();
-
-    writer.write("[" + stringstream.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence().castChar() + '\n');
+    return ("[" + string.str() + "]" + " " + dnaHash.getIDMap()[DnaMetaData::getId()]->getName() + ": " + dnaHash.getIDMap()[DnaMetaData::getId()]->getDnaSequence().castChar() + '\n');
 }

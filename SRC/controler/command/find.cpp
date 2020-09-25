@@ -1,9 +1,8 @@
-#include <iostream>
 #include "find.h"
 #include "../AuxiliaryFunc.h"
 
 
-void Find::createCommand(const Params &params)
+void Find::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -21,18 +20,15 @@ void Find::isValid(const Params& params)
     }
 }
 
-void Find::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Find::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
-    size_t idDnaOrginal;
-    size_t idDnaSub = 0;
-    size_t indexFind;
+    size_t idDnaOrginal = 0;
 
     if (params.getParams()[0][0] == '@')
     {
         if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         idDnaOrginal = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -44,17 +40,17 @@ void Find::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(idDnaOrginal))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
+
+    size_t idDnaSub = 0;
 
     if (params.getParams()[1][0] == '@')
     {
         if (!dnaHash.isExistName(params.getParams()[1].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         idDnaSub = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -66,10 +62,11 @@ void Find::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(idDnaSub))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
+
+    size_t indexFind;
 
     if (idDnaSub)
     {
@@ -83,14 +80,8 @@ void Find::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
     if (indexFind == dnaHash.findInIdMap(idDnaOrginal)->getDnaSequence().lenght())
     {
-        print(writer, "this subsequence not in sequence");
-        return;
+        return "this subsequence not in sequence\n";
     }
 
-    print(writer, castToString(indexFind));
-}
-
-void Find::print(const IWriter& writer, const std::string& string)
-{
-    writer.write(string + "\n");
+    return (castToString(indexFind) + "\n");
 }

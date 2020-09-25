@@ -2,7 +2,7 @@
 #include "../AuxiliaryFunc.h"
 
 
-void FindAll::createCommand(const Params &params)
+void FindAll::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -20,18 +20,15 @@ void FindAll::isValid(const Params& params)
     }
 }
 
-void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string FindAll::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
-    size_t idDnaOrginal;
-    size_t idDnaSub = 0;
-    std::list<size_t> indexFind;
+    size_t idDnaOrginal = 0;
 
     if (params.getParams()[0][0] == '@')
     {
         if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         idDnaOrginal = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -43,17 +40,17 @@ void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(idDnaOrginal))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
+
+    size_t idDnaSub = 0;
 
     if (params.getParams()[1][0] == '@')
     {
         if (!dnaHash.isExistName(params.getParams()[1].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         idDnaSub = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -65,10 +62,11 @@ void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(idDnaSub))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
+
+    std::list<size_t> indexFind;
 
     if (idDnaSub)
     {
@@ -80,17 +78,18 @@ void FindAll::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
         indexFind = dnaHash.findInIdMap(idDnaOrginal)->getDnaSequence().findAll(params.getParams()[1]);
     }
 
-    print(writer, indexFind);
+    return castStr(indexFind);
 }
 
-void FindAll::print(const IWriter& writer, std::list<size_t> indexFind)
+std::string FindAll::castStr(std::list<size_t> indexFind)
 {
     std::list<size_t>:: iterator it;
+    std::string str = "";
 
     for(it = indexFind.begin(); it != indexFind.end(); ++it)
     {
-        writer.write(castToString(*it));
+        str += ((castToString(*it)) + " ");
     }
 
-    writer.write("\n");
+    return (str + "\n");
 }

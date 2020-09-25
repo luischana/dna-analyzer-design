@@ -1,9 +1,8 @@
-#include <iostream>
 #include "slice.h"
 #include "../AuxiliaryFunc.h"
 
 
-void Slice::createCommand(const Params &params)
+void Slice::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -26,7 +25,7 @@ void Slice::isValid(const Params& params)
     }
 }
 
-void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Slice::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     size_t id = 0;
 
@@ -34,8 +33,7 @@ void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         id = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -47,8 +45,7 @@ void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(id))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
 
@@ -61,17 +58,18 @@ void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     if (params.getParams().size() == 3)
     {
         dnaHash.getIDMap()[id]->setSeq(sliceDna);
-        print(dnaHash, writer, id);
+        dnaHash.getIDMap()[id]->getStatus().setStatus("modified");
+
+        return castStr(dnaHash, id);
     }
 
-    else /*param.getParam().size() == 5*/
+    else
     {
         std::string newName;
 
         if (params.getParams()[4][1] == '@')
         {
-            std::string oldName;
-            oldName = dnaHash.getIDMap()[id]->getName();
+            std::string oldName = dnaHash.getIDMap()[id]->getName();
 
             std::stringstream name;
             name << oldName << '_' << 's' << dnaHash.getIDMap()[dnaHash.getNameMap()[oldName]]->getCount();
@@ -83,17 +81,17 @@ void Slice::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
             newName = params.getParams()[4].substr(1);
         }
 
-        DnaMetaData* newDnaSequence = new DnaMetaData(sliceDna, newName, (std::string)"slice");
-        dnaHash.add(newDnaSequence);
-        print(dnaHash, writer, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
+        DnaMetaData* newDna = new DnaMetaData(sliceDna, newName, (std::string)"new");
+        dnaHash.add(newDna);
+
+        return castStr(dnaHash, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
     }
 }
 
-void Slice::print(DnaHash &dnaHash, IWriter &writer, size_t id)
+std::string Slice::castStr(DnaHash& dnaHash, size_t id)
 {
-    std::stringstream stringstream;
+    std::stringstream string;
+    string << id;
 
-    stringstream << id;
-
-    writer.write("[" + stringstream.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
+    return ("[" + string.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
 }

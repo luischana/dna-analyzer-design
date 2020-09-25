@@ -1,4 +1,3 @@
-#include <sstream>
 #include "save.h"
 #include "../../view/write/TxtFileWriter.h"
 #include "../AuxiliaryFunc.h"
@@ -23,18 +22,15 @@ void Save::isValid(const Params& params)
 }
 
 
-void Save::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
+std::string Save::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     size_t id = 0;
-    std::string nameFile;
-    std::string nameDna;
 
     if (params.getParams()[0][0] == '@')
     {
         if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         id = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -46,10 +42,11 @@ void Save::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
 
         if (!dnaHash.isExistId(id))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
+
+    std::string nameFile;
 
     if (params.getParams().size() == 1)
     {
@@ -59,10 +56,13 @@ void Save::run(const Params& params, DnaHash& dnaHash, IWriter& writer)
     else
     {
         nameFile = params.getParams()[1];
+        size_t found = nameFile.find('.');
+        nameFile = nameFile.substr(0, found);
+        nameFile += ".rawdna";
     }
 
     TxtFileWriter write(nameFile);
-
     write.write(dnaHash.findInIdMap(id)->getDnaSequence().castChar());
-}
 
+    return "";
+}

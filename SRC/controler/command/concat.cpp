@@ -1,4 +1,3 @@
-#include <sstream>
 #include "concat.h"
 #include "../AuxiliaryFunc.h"
 
@@ -9,13 +8,15 @@ size_t findId(const Params& params, DnaHash& dnaHash, IWriter& writer, size_t i)
 
     if (params.getParams()[i][0] == '@')
     {
-        if(!dnaHash.isExistName(params.getParams()[i].substr(1)))
+        if (!dnaHash.isExistName(params.getParams()[i].substr(1)))
         {
             writer.write("name of DNA not found\n");
             return 0;
         }
+
         id = dnaHash.findIdByName(params.getParams()[i].substr(1));
     }
+
     else
     {
         id = castToSize(params.getParams()[i].substr(1));
@@ -58,12 +59,12 @@ void Concat::isValid(const Params& params)
         throw std::invalid_argument("INVALID NUM OF ARGUMENTS\n");
     }
 
-    if(params.getParams()[len - 2][0] == ':')
+    if (params.getParams()[len - 2][0] == ':')
     {
         len -= 2;
     }
 
-    for(size_t i = 0; i < len ; i++)
+    for(size_t i = 0; i < len ; ++i)
     {
         if (!(params.getParams()[i][0] == '@' || params.getParams()[i][0] == '#'))
         {
@@ -72,18 +73,18 @@ void Concat::isValid(const Params& params)
     }
 }
 
-void Concat::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Concat::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     static size_t count1 = 0, count2 = 0;
-
     size_t len = params.getParams().size();
+
     size_t id = findId(params, dnaHash, writer, 0);
     std::string str = dnaHash.getIDMap()[id]->getDnaSequence().castChar();
     std::string name = dnaHash.getIDMap()[id]->getName();
 
-    for(size_t i = 1; i < len; i++)
+    for(size_t i = 1; i < len; ++i)
     {
-        if(params.getParams()[i][0] == ':')
+        if (params.getParams()[i][0] == ':')
         {
             break;
         }
@@ -97,9 +98,10 @@ void Concat::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     if (params.getParams()[len - 2][0] != ':')
     {
         dnaHash.getIDMap()[id]->setSeq(concatDna);
-        print(dnaHash, writer, id);
-    }
+        dnaHash.getIDMap()[id]->getStatus().setStatus("modified");
 
+        return castStr(dnaHash, id);
+    }
 
     else
     {
@@ -127,15 +129,17 @@ void Concat::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
             newName = params.getParams()[len - 1].substr(1);
         }
 
-        DnaMetaData* newDnaSequence = new DnaMetaData(concatDna, newName, (std::string)"concat");
-        dnaHash.add(newDnaSequence);
-        print(dnaHash, writer, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
+        DnaMetaData* newDna = new DnaMetaData(concatDna, newName, (std::string)"new");
+        dnaHash.add(newDna);
+
+        return castStr(dnaHash, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
     }
 }
 
-void Concat::print(DnaHash &dnaHash, IWriter &writer, size_t id)
+std::string Concat::castStr(DnaHash &dnaHash, size_t id)
 {
     std::stringstream stringstream;
     stringstream << id;
-    writer.write("[" + stringstream.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n' + '\n');
+
+    return ("[" + stringstream.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n' + '\n');
 }

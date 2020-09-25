@@ -2,7 +2,7 @@
 #include "../AuxiliaryFunc.h"
 
 
-void Rename::createCommand(const Params &params)
+void Rename::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -25,7 +25,7 @@ void Rename::isValid(const Params& params)
     }
 }
 
-void Rename::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Rename::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     size_t id = 0;
 
@@ -33,8 +33,7 @@ void Rename::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         id = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -46,26 +45,19 @@ void Rename::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(id))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
 
     if (dnaHash.isExistName(params.getParams()[1].substr(1)))
     {
-        writer.write("the name is already exists\n");
-        return;
+        return "the name is already exists\n";
     }
 
     dnaHash.setName(id, params.getParams()[1].substr(1));
-    print(dnaHash, writer, id);
-}
 
-void Rename::print(DnaHash &dnaHash, IWriter &writer, size_t id)
-{
-    std::stringstream stringstream;
+    std::stringstream string;
+    string << id;
 
-    stringstream << id;
-
-    writer.write("[" + stringstream.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
+    return ("[" + string.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
 }

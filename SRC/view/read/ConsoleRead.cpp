@@ -4,6 +4,5 @@
 
 void ConsoleRead::read()
 {
-    std::cout << "> cmd >>>";
     std::getline(std::cin, m_str, '\n');
 }

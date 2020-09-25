@@ -11,7 +11,7 @@ public:
     const DnaSequence& getDnaSequence() const { return m_dnaSequence; }
     const std::string& getName() const        { return m_name; }
     static size_t getId()                     { return m_id; }
-    const Status& getStatus() const           { return m_status; }
+    Status& getStatus()                       { return m_status; }
     size_t getCount()                         { return ++m_count; }
     void setSeq(const DnaSequence& seq);
     void setName(std::string name);

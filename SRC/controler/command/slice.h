@@ -8,8 +8,8 @@ class Slice: public ManipulationCommand {
 public:
     /*virtual*/ void createCommand(const Params& params);
     void isValid(const Params& params);
-    /*virtual*/ void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
-    void print(DnaHash& dnaHash, IWriter& writer, size_t id);
+    /*virtual*/ std::string run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader);
+    std::string castStr(DnaHash& dnaHash, size_t id);
 };
 
 

@@ -8,7 +8,7 @@ class Save: public ManagementCommand {
 public:
     /*virtual*/ void createCommand(const Params& params);
     void isValid(const Params& params);
-    /*virtual*/ void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
+    /*virtual*/ std::string run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader);
 };
 
 

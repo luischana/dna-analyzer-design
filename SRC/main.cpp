@@ -10,6 +10,7 @@ int main() {
     ConsoleWriter writer;
     Terminal terminal;
 
+    writer.write("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n          Welcome to Dnalanyzer System            \n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
     program.start(reader, writer, &terminal);
 
     return 0;

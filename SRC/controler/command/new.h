@@ -2,18 +2,13 @@
 #define SRC_NEW_H
 
 
-#include <sstream>
 #include "CreationCommand.h"
-#include "../params/Params.h"
-#include "../../model/DnaHash.h"
-#include "../../view/write/IWriter.h"
 
 class New: public CreationCommand {
 public:
     /*virtual*/ void createCommand(const Params& params);
     void isValid(const Params& params);
-    /*virtual*/ void run(const Params& params, DnaHash& dnaHash, IWriter& writer);
-    void print(DnaHash& dnaHash, IWriter& writer);
+    /*virtual*/ std::string run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader);
 };
 
 

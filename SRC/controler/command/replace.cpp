@@ -8,7 +8,7 @@ void Replace::createCommand(const Params& params)
     isValid(params);
 }
 
-void Replace::isValid(const Params &params)
+void Replace::isValid(const Params& params)
 {
     if (params.getParams().size() < 3 && params.getParams().size() % 2 != 1)
     {
@@ -23,15 +23,16 @@ void Replace::isValid(const Params &params)
 
 std::string replaceDna(const Params& params, std::string seq)
 {
-    size_t i = 1;
-    size_t index;
-    std::string newLetter;
     size_t len = params.getParams().size() - 1;
 
     if (params.getParams()[len-1][0] == ':')
     {
         len -= 2;
     }
+
+    size_t i = 1;
+    size_t index;
+    std::string newLetter;
 
     while(i < len)
     {
@@ -52,7 +53,7 @@ std::string replaceDna(const Params& params, std::string seq)
     return seq;
 }
 
-void Replace::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Replace::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
     size_t id = 0;
 
@@ -60,8 +61,7 @@ void Replace::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     {
         if (!dnaHash.isExistName(params.getParams()[0].substr(1)))
         {
-            writer.write("name of DNA not found\n");
-            return;
+            return "name of DNA not found\n";
         }
 
         id = dnaHash.findIdByName(params.getParams()[0].substr(1));
@@ -73,8 +73,7 @@ void Replace::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
 
         if (!dnaHash.isExistId(id))
         {
-            writer.write("id of DNA not found\n");
-            return;
+            return "id of DNA not found\n";
         }
     }
 
@@ -86,7 +85,9 @@ void Replace::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
     if (params.getParams()[len-1][0] != ':')
     {
         dnaHash.getIDMap()[id]->setSeq(replaceDnaSeq);
-        print(dnaHash, writer, id);
+        dnaHash.getIDMap()[id]->getStatus().setStatus("modified");
+
+        return castStr(dnaHash, id);
     }
 
     else
@@ -108,17 +109,17 @@ void Replace::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
             newName = params.getParams()[len].substr(1);
         }
 
-        DnaMetaData* newDnaSequence = new DnaMetaData(replaceDnaSeq, newName, (std::string)"replace");
-        dnaHash.add(newDnaSequence);
-        print(dnaHash, writer, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
+        DnaMetaData* newDna = new DnaMetaData(replaceDnaSeq, newName, (std::string)"new");
+        dnaHash.add(newDna);
+
+        return castStr(dnaHash, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
     }
 }
 
-void Replace::print(DnaHash &dnaHash, IWriter &writer, size_t id)
+std::string Replace::castStr(DnaHash& dnaHash, size_t id)
 {
     std::stringstream stringstream;
-
     stringstream << id;
 
-    writer.write("[" + stringstream.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
+    return ("[" + stringstream.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
 }

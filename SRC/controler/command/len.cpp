@@ -1,9 +1,8 @@
-#include <iostream>
 #include "len.h"
 #include "../AuxiliaryFunc.h"
 
 
-void Len::createCommand(const Params &params)
+void Len::createCommand(const Params& params)
 {
     isValid(params);
 }
@@ -21,26 +20,21 @@ void Len::isValid(const Params& params)
     }
 }
 
-void Len::run(const Params &params, DnaHash &dnaHash, IWriter &writer)
+std::string Len::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
-    std::string dna;
     size_t id = 0;
-
     std::istringstream(params.getParams()[0].c_str() + 1) >> id;
+
+    std::string dna;
 
     if (dnaHash.isExistId(id))
     {
         dna = dnaHash.getIDMap()[id]->getDnaSequence().castChar();
-        print(writer, castToString(dna.length()));
+        return (castToString(dna.length()) + "\n");
     }
 
     else
     {
-        print(writer, castToString(id) + " not found");
+        return (castToString(id) + " not found\n");
     }
-}
-
-void Len::print(IWriter &writer, std::string str)
-{
-    writer.write(str + "\n");
 }
