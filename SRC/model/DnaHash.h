@@ -9,16 +9,17 @@
 class DnaHash {
 public:
     void add(DnaMetaData* dna);
+    void del(size_t id);
+
     std::map<std::string, size_t>&  getNameMap() { return m_nameMap; }
     std::map<size_t, DnaMetaData*>& getIDMap()   { return m_IDMap; }
+    void setName(size_t id, const std::string& name);
 
     size_t findIdByName(const std::string& name);
     DnaMetaData* findInIdMap(size_t id);
 
     bool isExistName(const std::string& name);
     bool isExistId(size_t id);
-
-    void setName(size_t id, const std::string& name);
 
 private:
     std::map<std::string, size_t>  m_nameMap;

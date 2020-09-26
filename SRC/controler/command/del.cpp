@@ -51,7 +51,7 @@ std::string Del::castStr(DnaHash& dnaHash, IWriter& writer, IReader& reader, siz
 {
     std::stringstream string;
     string << id;
-    writer.write("Do you really want to delete" + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + "?\n"
+    writer.write("Do you really want to delete " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + "?\n"
                  + "Please confirm by 'y' or 'Y', or cancel by 'n' or 'N'.\n> confirm >>>");
 
     reader.read();
@@ -66,7 +66,8 @@ std::string Del::castStr(DnaHash& dnaHash, IWriter& writer, IReader& reader, siz
 
     if (input == "y" || input == "Y")
     {
-        return ("Deleted: [" + string.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
+        writer.write("Deleted: [" + string.str() + "] " + dnaHash.getIDMap()[id]->getName() + ": " + dnaHash.getIDMap()[id]->getDnaSequence().castChar() + '\n');
+        dnaHash.del(id);
     }
 
     return "";
