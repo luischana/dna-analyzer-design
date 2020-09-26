@@ -1,4 +1,5 @@
 #include "quit.h"
+#include "../AuxiliaryFunc.h"
 
 
 void Quit::createCommand(const Params& params)
@@ -16,7 +17,7 @@ void Quit::isValid(const Params& params)
 
 std::string Quit::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IReader& reader)
 {
-    writer.write("There are modified and new sequences. Are you sure you want to quit?\nPlease confirm by 'y' or 'Y', or cancel by 'n' or 'N'.\n> confirm >>>");
+    writer.write("There are " + castToString(Status::s_vecStatus[1]) + " modified and " + castToString(Status::s_vecStatus[0]) + " new sequences. Are you sure you want to quit?\nPlease confirm by 'y' or 'Y', or cancel by 'n' or 'N'.\n> confirm >>>");
     reader.read();
     std::string input = reader.getStr();
 

@@ -67,6 +67,7 @@ std::string Dup::run(const Params& params, DnaHash& dnaHash, IWriter& writer, IR
 
     DnaMetaData* newDna = new DnaMetaData(dna, name, (std::string)"new");
     dnaHash.add(newDna);
+    ++Status::s_vecStatus[0];
 
     std::stringstream string;
     string << dnaHash.getIDMap()[DnaMetaData::getId()]->getId();

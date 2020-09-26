@@ -1,4 +1,4 @@
-#include <iostream>
+//#include <iostream>
 #include "factory.h"
 #include "../command/new.h"
 #include "../command/load.h"

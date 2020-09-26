@@ -98,7 +98,14 @@ std::string Concat::run(const Params& params, DnaHash& dnaHash, IWriter& writer,
     if (params.getParams()[len - 2][0] != ':')
     {
         dnaHash.getIDMap()[id]->setSeq(concatDna);
-        dnaHash.getIDMap()[id]->getStatus().setStatus("modified");
+
+        if (dnaHash.getIDMap()[id]->getStatus().getStatus() != "modified")
+        {
+            dnaHash.getIDMap()[id]->getStatus().setStatus("modified");
+            --Status::s_vecStatus[0];
+        }
+
+        ++Status::s_vecStatus[1];
 
         return castStr(dnaHash, id);
     }
@@ -131,6 +138,7 @@ std::string Concat::run(const Params& params, DnaHash& dnaHash, IWriter& writer,
 
         DnaMetaData* newDna = new DnaMetaData(concatDna, newName, (std::string)"new");
         dnaHash.add(newDna);
+        ++Status::s_vecStatus[0];
 
         return castStr(dnaHash, dnaHash.getIDMap()[DnaMetaData::getId()]->getId());
     }

@@ -42,6 +42,7 @@ std::string Load::run(const Params& params, DnaHash& dnaHash, IWriter& writer, I
 
     DnaMetaData* newDna = new DnaMetaData(fileName.getStr(), name, (std::string)"up to data");
     dnaHash.add(newDna);
+    ++Status::s_vecStatus[2];
 
     return castStr(dnaHash);
 }
